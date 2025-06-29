@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PaperCharacter.h"
+#include "PaperFlipbook.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "InputActionValue.h"
@@ -27,6 +28,20 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
     UInputAction* JumpAction;
 public:
 	AMainCharacter();
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	float CurrentHealth;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	float MaxHealth;
+
+	//Flipbook animations
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbook* IdleAnimation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbook* WalkAnimation;
+
+	void UpdateAnimation();
+	
 private:
 	void Tick(float DeltaSeconds) override;
     void BeginPlay() override;

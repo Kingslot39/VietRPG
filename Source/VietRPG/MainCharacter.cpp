@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-
-#include "EnhancedInputComponent.h"
-#include "GameFramework/Controller.h"
-#include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/Controller.h"
 #include "MainCharacter.h"
+#include "EnhancedInputComponent.h"
+#include "PaperFlipbookComponent.h"
+#include "GameFramework/Controller.h"
+#include "GameFramework/Controller.h"
+
 
 
 AMainCharacter::AMainCharacter()
@@ -14,9 +14,30 @@ AMainCharacter::AMainCharacter()
 	
 }
 
+void AMainCharacter::UpdateAnimation()
+{
+	float Speed = GetVelocity().Size();
+
+	if(Speed >0.0)
+	{
+		if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+		{
+			GetSprite()->SetFlipbook(WalkAnimation);
+		}
+	}
+	else
+	{
+		if (IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
+		{
+			GetSprite()->SetFlipbook(IdleAnimation);
+		}
+	}
+}
+
 void AMainCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	UpdateAnimation();
 }
 
 void AMainCharacter::BeginPlay()
@@ -48,10 +69,23 @@ void AMainCharacter::Move(const FInputActionValue& Value)
 {
 	float MovementValue = Value.Get<float>();
 
-	if (Controller != nullptr && MovementValue != 0.0f)
+	if (Controller != nullptr)
 	{
-		// Move only along the X axis (side to side)
-		AddMovementInput(FVector(1.0f, 0.0f, 0.0f), MovementValue);
+		if (MovementValue != 0.0f)
+		{
+			
+			// Move only along X axis
+			AddMovementInput(FVector(1.0f, 0.0f, 0.0f), MovementValue);
+			if (MovementValue < 0)
+			{
+				GetSprite()->SetRelativeScale3D(FVector(-1.f, 1.f, 1.f)); // Flip horizontally (face left)
+			}
+			else if (MovementValue > 0)
+			{
+				GetSprite()->SetRelativeScale3D(FVector(1.f, 1.f, 1.f)); // Default (face right)
+			}
+		}
+		
 	}
 }
 
