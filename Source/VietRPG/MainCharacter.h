@@ -39,6 +39,13 @@ public:
 	UPaperFlipbook* IdleAnimation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbook* WalkAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* JumpAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* LandingAnimation;
+
+	virtual void Jump() override;
+	virtual void Landed(const FHitResult& Hit) override;
 
 	void UpdateAnimation();
 	

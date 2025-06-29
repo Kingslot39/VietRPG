@@ -4,6 +4,7 @@
 #include "MainCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "PaperFlipbookComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/Controller.h"
 
@@ -12,6 +13,26 @@
 AMainCharacter::AMainCharacter()
 {
 	
+}
+
+
+void AMainCharacter::Jump()
+{
+	Super::Jump();
+	if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
+	{
+		GetSprite()->SetFlipbook(JumpAnimation);
+	}
+}
+
+void AMainCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	if(LandingAnimation && GetSprite()->GetFlipbook() != LandingAnimation)
+	{
+		GetSprite()->SetFlipbook(LandingAnimation);
+	}
+	GetWorldTimerManager().SetTimerForNextTick(this, &AMainCharacter::UpdateAnimation);
 }
 
 void AMainCharacter::UpdateAnimation()
@@ -59,7 +80,7 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMainCharacter::Move);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);		
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 	}
 	

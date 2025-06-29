@@ -11,15 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5fbc6ea-8fe6-47c9-baa3-6fd23015c1e6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MainCharacter/BP_MainCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/BP_MainCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Map/2DMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/2DMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Environment/TM_Test.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Environment/TM_Test.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Flipbook/FP_Jump_Char.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Character/Flipbook/FP_Jump_Char.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VietRPG.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/VietRPG.uproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -447,7 +445,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1751133166528</updated>
-      <workItem from="1751133167661" duration="4057000" />
+      <workItem from="1751133167661" duration="6044000" />
     </task>
     <servers />
   </component>
