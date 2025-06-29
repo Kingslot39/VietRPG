@@ -45,6 +45,7 @@ public:
 	UPaperFlipbook* LandingAnimation;
 
 	virtual void Jump() override;
+	FTimerHandle LandingDelayHandle;
 	virtual void Landed(const FHitResult& Hit) override;
 
 	void UpdateAnimation();

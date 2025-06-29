@@ -25,35 +25,63 @@ void AMainCharacter::Jump()
 	}
 }
 
+
 void AMainCharacter::Landed(const FHitResult& Hit)
 {
-	Super::Landed(Hit);
-	if(LandingAnimation && GetSprite()->GetFlipbook() != LandingAnimation)
-	{
-		GetSprite()->SetFlipbook(LandingAnimation);
-	}
-	GetWorldTimerManager().SetTimerForNextTick(this, &AMainCharacter::UpdateAnimation);
+		Super::Landed(Hit);
+
+		if (LandingAnimation && GetSprite()->GetFlipbook() != LandingAnimation)
+		{
+			GetSprite()->SetFlipbook(LandingAnimation);
+		}
+
+		// Delay return to idle/walk after landing animation duration
+		GetWorldTimerManager().SetTimer(
+			LandingDelayHandle,
+			this,
+			&AMainCharacter::UpdateAnimation,
+			0.2, // Length of your landing animation
+			false
+		);
 }
+
 
 void AMainCharacter::UpdateAnimation()
 {
-	float Speed = GetVelocity().Size();
+		// If in air
+		if (GetCharacterMovement()->IsFalling())
+		{
+			if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
+			{
+				GetSprite()->SetFlipbook(JumpAnimation);
+			}
+		}
 
-	if(Speed >0.0)
-	{
-		if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+		// Not falling = on ground
+		// Avoid overwriting LandingAnimation too soon
+		if (GetWorldTimerManager().IsTimerActive(LandingDelayHandle))
 		{
-			GetSprite()->SetFlipbook(WalkAnimation);
+			return; // Wait until landing animation finishes
 		}
-	}
-	else
-	{
-		if (IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
+
+		float Speed = GetVelocity().SizeSquared();
+
+		if (Speed > 0.0f)
 		{
-			GetSprite()->SetFlipbook(IdleAnimation);
+			if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+			{
+				GetSprite()->SetFlipbook(WalkAnimation);
+			}
 		}
-	}
+		else
+		{
+			if (IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
+			{
+				GetSprite()->SetFlipbook(IdleAnimation);
+			}
+		}
 }
+
 
 void AMainCharacter::Tick(float DeltaSeconds)
 {
