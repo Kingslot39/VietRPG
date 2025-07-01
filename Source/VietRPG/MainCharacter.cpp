@@ -83,6 +83,28 @@ void AMainCharacter::UpdateAnimation()
 }
 
 
+void AMainCharacter::ShootingSpellSkill()
+{
+	if (SpellClass)
+	{
+		float FacingDirection = GetSprite()->GetRelativeScale3D().X;
+		FVector Offset = FVector(50.f * FacingDirection, 0.f, 0.f);
+		FVector SpawnLocation = GetActorLocation() + Offset;
+		FRotator SpawnRotation = FRotator::ZeroRotator;
+
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = this;
+
+		ASpell* Projectile = GetWorld()->SpawnActor<ASpell>(SpellClass, SpawnLocation, SpawnRotation, SpawnParams);
+
+		if (Projectile)
+		{
+			Projectile->SetDirection(FacingDirection);
+		}
+	}
+}
+
 void AMainCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -110,6 +132,8 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMainCharacter::Move);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);		
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+
+		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Started, this, &AMainCharacter::ShootingSpellSkill);
 	}
 	
 }

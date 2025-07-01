@@ -11,6 +11,7 @@ AEnemy::AEnemy()
 
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = false;
+	ElementCombineComponent = CreateDefaultSubobject<UElementCombineComponent>(TEXT("Element Component"));
 
 	CurrentHealth = MaxHealth = 100.f;
 }
@@ -47,3 +48,9 @@ void AEnemy::UpdateAnimation()
 		}
 	}
 }
+
+void AEnemy::GetDamage(float DamageAmount)
+{
+	CurrentHealth = FMath::Clamp(CurrentHealth - DamageAmount, 0.f, MaxHealth);
+}
+

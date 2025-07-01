@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ElementCombineComponent.h"
 #include "PaperFlipbook.h"
 #include "PaperCharacter.h"
 #include "Enemy.generated.h"
@@ -41,4 +42,12 @@ public:
 
 	// Set animation depending on state
 	void UpdateAnimation();
+
+	//Get Damage
+	UFUNCTION(BlueprintCallable)
+	void GetDamage(float DamageAmount);
+
+	//Element tag
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UElementCombineComponent* ElementCombineComponent;
 };

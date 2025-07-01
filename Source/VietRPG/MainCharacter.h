@@ -8,6 +8,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "InputActionValue.h"
+#include "Spell.h"
 #include "MainCharacter.generated.h"
 
 /**
@@ -26,6 +27,9 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
     UInputAction* JumpAction;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* SkillAction;
 public:
 	AMainCharacter();
 
@@ -49,6 +53,13 @@ public:
 	virtual void Landed(const FHitResult& Hit) override;
 
 	void UpdateAnimation();
+
+	//Skill
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<ASpell>SpellClass;
+
+	UFUNCTION(BlueprintCallable)
+	void ShootingSpellSkill();
 	
 private:
 	void Tick(float DeltaSeconds) override;
