@@ -30,6 +30,8 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillAction;
+	
+
 public:
 	AMainCharacter();
 
