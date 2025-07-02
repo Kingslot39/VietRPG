@@ -6,8 +6,11 @@
 #include "PaperCharacter.h"
 #include "PaperFlipbook.h"
 #include "EnhancedInputSubsystems.h"
+#include "ElementCombineComponent.h"
 #include "InputMappingContext.h"
 #include "InputActionValue.h"
+#include "MainSkillWidget.h"
+#include "SkillWheelWidget.h"
 #include "Spell.h"
 #include "MainCharacter.generated.h"
 
@@ -30,6 +33,17 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillAction;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* SkillWheelAction;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* SkillWheelSelectAction;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* SkillWheelSelectAction2;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* SkillWheelSelectAction3;
+	
 	
 
 public:
@@ -62,6 +76,29 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ShootingSpellSkill();
+
+
+	//Skill UI
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Skill")
+	TSubclassOf<UMainSkillWidget>MainSkillWidgetClass;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Skill")
+	TSubclassOf<USkillWheelWidget>SkillWheelWidgetClass;
+
+	UPROPERTY()
+	UMainSkillWidget* MainSkillWidget;
+	UPROPERTY()
+	USkillWheelWidget* SkillWheelWidget;
+
+	UPROPERTY()
+	EElementTag CurrentSkill = EElementTag::E_Air;
+    bool bIsSkillWheelVisible = false;
+	void ShowSkillWheel();
+	void HideSkillWheel();
+	void OnSkillSelected(EElementTag SelectedSkill);
+
+    void SelectSkillLeft();
+	void SelectSkillRight();
+	void SelectSkillUp();
 	
 private:
 	void Tick(float DeltaSeconds) override;

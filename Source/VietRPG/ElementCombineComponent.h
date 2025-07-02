@@ -9,11 +9,11 @@
 UENUM(BlueprintType)
 enum class EElementTag : uint8
 {
-	E_None  UMETA(DisplayName = "None"),
 	E_Fire  UMETA(DisplayName = "Fire"),
 	E_Water UMETA(DisplayName = "Water"),
 	E_Earth UMETA(DisplayName = "Earth"),
 	E_Air   UMETA(DisplayName = "Air"),
+	E_None  UMETA(DisplayName = "None")
 };
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class VIETRPG_API UElementCombineComponent : public UActorComponent

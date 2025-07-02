@@ -7,7 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/Controller.h"
-
+#include "Kismet/GameplayStatics.h"
 
 
 AMainCharacter::AMainCharacter()
@@ -105,6 +105,70 @@ void AMainCharacter::ShootingSpellSkill()
 	}
 }
 
+void AMainCharacter::ShowSkillWheel()
+{
+	bIsSkillWheelVisible = true;
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(),0.2);
+	if (!SkillWheelWidget && SkillWheelWidgetClass)
+	{
+		SkillWheelWidget = CreateWidget<USkillWheelWidget>(GetWorld(), SkillWheelWidgetClass);
+		if (SkillWheelWidget)
+		{
+			SkillWheelWidget->AddToViewport();
+			SkillWheelWidget->OnSkillSelected.AddDynamic(this, &AMainCharacter::OnSkillSelected);
+		}
+	}
+	else if (SkillWheelWidget)
+	{
+		SkillWheelWidget->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+
+void AMainCharacter::HideSkillWheel()
+{
+	bIsSkillWheelVisible = false;
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.0f);
+	if (SkillWheelWidget)
+	{
+		SkillWheelWidget->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
+void AMainCharacter::OnSkillSelected(EElementTag SelectedSkill)
+{
+	CurrentSkill = SelectedSkill;
+
+	if (MainSkillWidget)
+	{
+		MainSkillWidget->UpdateSkillIcon(SelectedSkill);
+	}
+    if (SkillWheelWidget)
+	{
+		SkillWheelWidget->UpdateSelectedSKill(SelectedSkill);
+	}
+
+	HideSkillWheel();
+}
+
+void AMainCharacter::SelectSkillLeft()
+{
+	if (bIsSkillWheelVisible)
+		OnSkillSelected(EElementTag::E_Water);
+
+}
+
+void AMainCharacter::SelectSkillRight()
+{
+	if (bIsSkillWheelVisible)
+		OnSkillSelected(EElementTag::E_Fire);
+}
+
+void AMainCharacter::SelectSkillUp()
+{
+	if (bIsSkillWheelVisible)
+		OnSkillSelected(EElementTag::E_Earth);
+}
+
 void AMainCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -121,6 +185,15 @@ void AMainCharacter::BeginPlay()
 			Subsystem->AddMappingContext(InputMappingContext, 0);
 		}
 	}
+	if (MainSkillWidgetClass)
+	{
+		MainSkillWidget = CreateWidget<UMainSkillWidget>(GetWorld(), MainSkillWidgetClass);
+		if (MainSkillWidget)
+		{
+			MainSkillWidget->AddToViewport();
+			MainSkillWidget->UpdateSkillIcon(CurrentSkill);
+		}
+	}
 }
 
 
@@ -134,12 +207,23 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Started, this, &AMainCharacter::ShootingSpellSkill);
+
+		EnhancedInputComponent->BindAction(SkillWheelAction, ETriggerEvent::Started, this, &AMainCharacter::ShowSkillWheel);
+		EnhancedInputComponent->BindAction(SkillWheelAction, ETriggerEvent::Completed, this, &AMainCharacter::HideSkillWheel);
+
+		//Skill Selection
+		EnhancedInputComponent->BindAction(SkillWheelSelectAction, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillLeft);
+		EnhancedInputComponent->BindAction(SkillWheelSelectAction2, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillRight);
+		EnhancedInputComponent->BindAction(SkillWheelSelectAction3, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillUp);
 	}
+		
 	
 }
 
 void AMainCharacter::Move(const FInputActionValue& Value)
 {
+	if (bIsSkillWheelVisible)
+		return;
 	float MovementValue = Value.Get<float>();
 
 	if (Controller != nullptr)
