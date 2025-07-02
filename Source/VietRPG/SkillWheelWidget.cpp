@@ -2,6 +2,7 @@
 
 
 #include "SkillWheelWidget.h"
+#include "MainSkillWidget.h"
 
 
 void USkillWheelWidget::SelectSkill(EElementTag SkillTag)
@@ -9,7 +10,5 @@ void USkillWheelWidget::SelectSkill(EElementTag SkillTag)
 	OnSkillSelected.Broadcast(SkillTag);
 }
 
-void USkillWheelWidget::UpdateSelectedSKill(EElementTag Chosen)
-{
-	SelectedSkillTag = Chosen;
-}
+
+

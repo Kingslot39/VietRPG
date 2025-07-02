@@ -5,6 +5,8 @@
 
 void UMainSkillWidget::UpdateSkillIcon(EElementTag NewSKillTag)
 {
+
 	if (IconMap.Contains(NewSKillTag) && SkillIcon)
 		SkillIcon->SetBrushFromTexture(IconMap[NewSKillTag]);
 }
+

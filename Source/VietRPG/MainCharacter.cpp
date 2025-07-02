@@ -142,12 +142,8 @@ void AMainCharacter::OnSkillSelected(EElementTag SelectedSkill)
 	{
 		MainSkillWidget->UpdateSkillIcon(SelectedSkill);
 	}
-    if (SkillWheelWidget)
-	{
-		SkillWheelWidget->UpdateSelectedSKill(SelectedSkill);
-	}
 
-	HideSkillWheel();
+	
 }
 
 void AMainCharacter::SelectSkillLeft()
@@ -167,6 +163,12 @@ void AMainCharacter::SelectSkillUp()
 {
 	if (bIsSkillWheelVisible)
 		OnSkillSelected(EElementTag::E_Earth);
+}
+
+void AMainCharacter::SelectSkillDown()
+{
+	if (bIsSkillWheelVisible)
+		OnSkillSelected(EElementTag::E_Air);
 }
 
 void AMainCharacter::Tick(float DeltaSeconds)
@@ -215,6 +217,7 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(SkillWheelSelectAction, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillLeft);
 		EnhancedInputComponent->BindAction(SkillWheelSelectAction2, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillRight);
 		EnhancedInputComponent->BindAction(SkillWheelSelectAction3, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillUp);
+		EnhancedInputComponent->BindAction(SkillWheelSelectAction4, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillDown);
 	}
 		
 	

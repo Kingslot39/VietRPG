@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ElementCombineComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Image.h"
+#include "ElementCombineComponent.h"
 #include "SkillWheelWidget.generated.h"
 
 /**
@@ -13,7 +13,6 @@
  */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSkillSelected, EElementTag, SelectedSkill);
-
 UCLASS()
 class VIETRPG_API USkillWheelWidget : public UUserWidget
 {
@@ -26,8 +25,5 @@ public:
 	void SelectSkill(EElementTag SkillTag);
 	
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill Wheel")
-	EElementTag SelectedSkillTag = EElementTag::E_None;
-	
-	void UpdateSelectedSKill(EElementTag Chosen);
+
 };

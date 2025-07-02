@@ -18,12 +18,17 @@ class VIETRPG_API UMainSkillWidget : public UUserWidget
 public:
 	UFUNCTION(BlueprintCallable, Category = "Skill Widget")
 	void UpdateSkillIcon (EElementTag NewSKillTag);
+	EElementTag ReturnSkillTag();
 
 protected:
 	UPROPERTY(meta= (BindWidget))
 	UImage* SkillIcon;
 
+	
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Skill Widget")
 	TMap<EElementTag, UTexture2D*> IconMap;
+
+
 	
 };

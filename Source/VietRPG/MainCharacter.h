@@ -43,6 +43,8 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 	UInputAction* SkillWheelSelectAction2;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillWheelSelectAction3;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* SkillWheelSelectAction4;
 	
 	
 
@@ -99,6 +101,7 @@ public:
     void SelectSkillLeft();
 	void SelectSkillRight();
 	void SelectSkillUp();
+	void SelectSkillDown();
 	
 private:
 	void Tick(float DeltaSeconds) override;
