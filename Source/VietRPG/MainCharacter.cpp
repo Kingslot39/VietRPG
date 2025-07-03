@@ -108,8 +108,8 @@ void AMainCharacter::ShootingSpellSkill()
 void AMainCharacter::ShowSkillWheel()
 {
 	bIsSkillWheelVisible = true;
-	UGameplayStatics::SetGlobalTimeDilation(GetWorld(),0.2);
-	if (!SkillWheelWidget && SkillWheelWidgetClass)
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(),0.1);
+	if ((!SkillWheelWidget && SkillWheelWidgetClass)&&(!WeaponWheelWidget && WeaponWheelWidgetClass))
 	{
 		SkillWheelWidget = CreateWidget<USkillWheelWidget>(GetWorld(), SkillWheelWidgetClass);
 		if (SkillWheelWidget)
@@ -117,33 +117,48 @@ void AMainCharacter::ShowSkillWheel()
 			SkillWheelWidget->AddToViewport();
 			SkillWheelWidget->OnSkillSelected.AddDynamic(this, &AMainCharacter::OnSkillSelected);
 		}
+		WeaponWheelWidget = CreateWidget<UWeaponWheelWidget>(GetWorld(), WeaponWheelWidgetClass);
+		if (WeaponWheelWidget)
+		{
+			WeaponWheelWidget->AddToViewport();
+			WeaponWheelWidget->OnWeaponSelected.AddDynamic(this, &AMainCharacter::OnWeaponSelected);
+		}
 	}
-	else if (SkillWheelWidget)
+	else if ((WeaponWheelWidget) && (SkillWheelWidget))
 	{
 		SkillWheelWidget->SetVisibility(ESlateVisibility::Visible);
+		WeaponWheelWidget->SetVisibility(ESlateVisibility::Visible);
 	}
+	
 }
 
 void AMainCharacter::HideSkillWheel()
 {
 	bIsSkillWheelVisible = false;
 	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.0f);
-	if (SkillWheelWidget)
+	if ((SkillWheelWidget) && (WeaponWheelWidget))
 	{
 		SkillWheelWidget->SetVisibility(ESlateVisibility::Hidden);
+		WeaponWheelWidget->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 
 void AMainCharacter::OnSkillSelected(EElementTag SelectedSkill)
 {
 	CurrentSkill = SelectedSkill;
-
 	if (MainSkillWidget)
 	{
 		MainSkillWidget->UpdateSkillIcon(SelectedSkill);
 	}
+}
 
-	
+void AMainCharacter::OnWeaponSelected(EWeaponType SelectedWeapon)
+{
+	CurrentWeapon = SelectedWeapon;
+	if(MainWeaponWidget)
+	{
+		MainWeaponWidget->UpdateWeaponIcon(SelectedWeapon);
+	}
 }
 
 void AMainCharacter::SelectSkillLeft()
@@ -171,6 +186,38 @@ void AMainCharacter::SelectSkillDown()
 		OnSkillSelected(EElementTag::E_Air);
 }
 
+void AMainCharacter::SelectWeaponLeft()
+{
+	if(bIsSkillWheelVisible)
+	{
+		OnWeaponSelected(EWeaponType::E_Staff);
+	}
+}
+
+void AMainCharacter::SelectWeaponRight()
+{
+	if(bIsSkillWheelVisible)
+	{
+		OnWeaponSelected(EWeaponType::E_Sword);
+	}
+}
+
+void AMainCharacter::SelectWeaponUp()
+{
+	if(bIsSkillWheelVisible)
+	{
+		OnWeaponSelected(EWeaponType::E_Bow);
+	}
+}
+
+void AMainCharacter::SelectWeaponDown()
+{
+	if(bIsSkillWheelVisible)
+	{
+		OnWeaponSelected(EWeaponType::E_Spear);
+	}
+}
+
 void AMainCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -195,6 +242,16 @@ void AMainCharacter::BeginPlay()
 			MainSkillWidget->AddToViewport();
 			MainSkillWidget->UpdateSkillIcon(CurrentSkill);
 		}
+	}
+	if (MainWeaponWidgetClass)
+	{
+		MainWeaponWidget = CreateWidget<UMainWeaponWidget>(GetWorld(), MainWeaponWidgetClass);
+		if (MainWeaponWidget)
+		{
+			MainWeaponWidget->AddToViewport();
+			MainWeaponWidget->UpdateWeaponIcon(CurrentWeapon);
+		}
+		
 	}
 }
 

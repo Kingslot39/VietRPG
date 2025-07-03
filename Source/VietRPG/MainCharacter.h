@@ -10,8 +10,10 @@
 #include "InputMappingContext.h"
 #include "InputActionValue.h"
 #include "MainSkillWidget.h"
+#include "MainWeaponWidget.h"
 #include "SkillWheelWidget.h"
 #include "Spell.h"
+#include "WeaponWheelWidget.h"
 #include "MainCharacter.generated.h"
 
 /**
@@ -36,7 +38,7 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillWheelAction;
-
+    //Skill Select
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillWheelSelectAction;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
@@ -45,6 +47,16 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 	UInputAction* SkillWheelSelectAction3;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillWheelSelectAction4;
+
+	//Weapon Select
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* WeaponWheelSelectActionLeft;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* WeaponWheelSelectActionRight;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* WeaponWheelSelectActionUp;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* WeaponWheelSelectDown;
 	
 	
 
@@ -72,6 +84,9 @@ public:
 
 	void UpdateAnimation();
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	EElementTag CurrentSkill;
+
 	//Skill
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<ASpell>SpellClass;
@@ -85,24 +100,40 @@ public:
 	TSubclassOf<UMainSkillWidget>MainSkillWidgetClass;
     UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Skill")
 	TSubclassOf<USkillWheelWidget>SkillWheelWidgetClass;
-
 	UPROPERTY()
 	UMainSkillWidget* MainSkillWidget;
 	UPROPERTY()
 	USkillWheelWidget* SkillWheelWidget;
 
+	//Weapon UI
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	TSubclassOf<UMainWeaponWidget>MainWeaponWidgetClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	TSubclassOf<UWeaponWheelWidget>WeaponWheelWidgetClass;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UMainWeaponWidget* MainWeaponWidget;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UWeaponWheelWidget* WeaponWheelWidget;
+
+	
 	UPROPERTY()
-	EElementTag CurrentSkill = EElementTag::E_Air;
     bool bIsSkillWheelVisible = false;
 	void ShowSkillWheel();
 	void HideSkillWheel();
 	void OnSkillSelected(EElementTag SelectedSkill);
-
+	void OnWeaponSelected(EWeaponType SelectedWeapon);
+	UPROPERTY()
+	EWeaponType CurrentWeapon;
+    //Select Skill
     void SelectSkillLeft();
 	void SelectSkillRight();
 	void SelectSkillUp();
 	void SelectSkillDown();
-	
+    //Select Weapon
+	void SelectWeaponLeft();
+	void SelectWeaponRight();
+	void SelectWeaponUp();
+	void SelectWeaponDown();
 private:
 	void Tick(float DeltaSeconds) override;
     void BeginPlay() override;
