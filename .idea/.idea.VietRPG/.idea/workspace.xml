@@ -12,11 +12,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c5fbc6ea-8fe6-47c9-baa3-6fd23015c1e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/IMC_Platforming.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/IMC_Platforming.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MainCharacter/BP_MainCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/BP_MainCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_Spell.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_Spell.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Map/2DMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/2DMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/BP_MainWeaponWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_MainWeaponWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/BP_WeaponWheelWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_WeaponWheelWidget.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainSkillWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainSkillWidget.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainSkillWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainSkillWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -454,6 +458,8 @@
       <workItem from="1751448454377" duration="13596000" />
       <workItem from="1751523025424" duration="6299000" />
       <workItem from="1751549125179" duration="2935000" />
+      <workItem from="1751608115651" duration="2375000" />
+      <workItem from="1751633350583" duration="4695000" />
     </task>
     <servers />
   </component>
@@ -462,5 +468,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp</url>
+          <line>98</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

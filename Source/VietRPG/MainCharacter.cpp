@@ -83,6 +83,35 @@ void AMainCharacter::UpdateAnimation()
 }
 
 
+void AMainCharacter::ActivateSkill()
+{
+	if(MainSkillWidget)
+	{
+		EElementTag SelectedSkill = MainSkillWidget->GetCurrentSkillTag();
+		switch (SelectedSkill)
+		{
+			case  EElementTag::E_Water:
+				// Activate Water skill
+				UE_LOG(LogTemp, Warning, TEXT("Water skill activated!"));
+				break;
+			case EElementTag::E_Fire:
+				// Activate Fire skill
+				UE_LOG(LogTemp, Warning, TEXT("Fire skill activated!"));
+			    ShootingSpellSkill();
+				break;
+			case  EElementTag::E_Earth:
+				// Activate Earth skill
+				UE_LOG(LogTemp, Warning, TEXT("Earth skill activated!"));
+			    EarthWallSkill();
+				break;
+			case  EElementTag::E_Air:
+				// Activate Air skill
+				UE_LOG(LogTemp, Warning, TEXT("Air skill activated!"));
+				break;
+		}
+	}
+}
+
 void AMainCharacter::ShootingSpellSkill()
 {
 	if (SpellClass)
@@ -103,6 +132,17 @@ void AMainCharacter::ShootingSpellSkill()
 			Projectile->SetDirection(FacingDirection);
 		}
 	}
+}
+
+void AMainCharacter::EarthWallSkill()
+{
+	FVector SpawnLocation = GetActorLocation();
+	FVector FacingOffset = GetActorForwardVector() * 100.0f; // Adjust distance
+	SpawnLocation += FacingOffset;
+
+	FRotator SpawnRotation = FRotator::ZeroRotator;
+
+	GetWorld()->SpawnActor<AActor>(EarthWallClass, SpawnLocation, SpawnRotation);
 }
 
 void AMainCharacter::ShowSkillWheel()
@@ -265,7 +305,7 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);		
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
-		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Started, this, &AMainCharacter::ShootingSpellSkill);
+		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Started, this, &AMainCharacter::ActivateSkill);
 
 		EnhancedInputComponent->BindAction(SkillWheelAction, ETriggerEvent::Started, this, &AMainCharacter::ShowSkillWheel);
 		EnhancedInputComponent->BindAction(SkillWheelAction, ETriggerEvent::Completed, this, &AMainCharacter::HideSkillWheel);
@@ -275,6 +315,11 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(SkillWheelSelectAction2, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillRight);
 		EnhancedInputComponent->BindAction(SkillWheelSelectAction3, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillUp);
 		EnhancedInputComponent->BindAction(SkillWheelSelectAction4, ETriggerEvent::Started, this, &AMainCharacter::SelectSkillDown);
+		//Weapon Selection
+		EnhancedInputComponent->BindAction(WeaponWheelSelectActionLeft, ETriggerEvent::Started, this, &AMainCharacter::SelectWeaponLeft);
+		EnhancedInputComponent->BindAction(WeaponWheelSelectActionRight, ETriggerEvent::Started, this, &AMainCharacter::SelectWeaponRight);
+		EnhancedInputComponent->BindAction(WeaponWheelSelectActionUp, ETriggerEvent::Started, this, &AMainCharacter::SelectWeaponUp);
+		EnhancedInputComponent->BindAction(WeaponWheelSelectDown, ETriggerEvent::Started, this, &AMainCharacter::SelectWeaponDown);
 	}
 		
 	

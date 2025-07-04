@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EarthWall.h"
 #include "PaperCharacter.h"
 #include "PaperFlipbook.h"
 #include "EnhancedInputSubsystems.h"
@@ -90,9 +91,16 @@ public:
 	//Skill
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<ASpell>SpellClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AEarthWall>EarthWallClass;
 
+	UFUNCTION(BlueprintCallable, Category = "Skill")
+	void ActivateSkill();
+	//Skill List
 	UFUNCTION(BlueprintCallable)
 	void ShootingSpellSkill();
+	UFUNCTION(BlueprintCallable)
+	void EarthWallSkill();
 
 
 	//Skill UI
