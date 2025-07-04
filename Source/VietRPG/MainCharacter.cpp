@@ -136,7 +136,7 @@ void AMainCharacter::ShootingSpellSkill()
 
 void AMainCharacter::EarthWallSkill()
 {
-	FVector SpawnLocation = GetActorLocation();
+	FVector SpawnLocation = GetActorLocation() - FVector(0,0,100);
 	FVector FacingOffset = GetActorForwardVector() * 100.0f; // Adjust distance
 	SpawnLocation += FacingOffset;
 

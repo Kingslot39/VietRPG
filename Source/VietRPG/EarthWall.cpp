@@ -10,8 +10,7 @@ AEarthWall::AEarthWall()
 	PrimaryActorTick.bCanEverTick = true;
 	EarthWallSprite = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("EarthWallSprite"));
 	RootComponent = EarthWallSprite;
-	EarthWallSprite->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	EarthWallSprite->SetCollisionProfileName("BlockAllDynamic");
+
 
 }
 
