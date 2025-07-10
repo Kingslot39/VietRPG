@@ -15,6 +15,7 @@
 #include "SkillWheelWidget.h"
 #include "Spell.h"
 #include "WeaponWheelWidget.h"
+#include "WindShield.h"
 #include "MainCharacter.generated.h"
 
 /**
@@ -93,14 +94,21 @@ public:
 	TSubclassOf<ASpell>SpellClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AEarthWall>EarthWallClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AWindShield>WindShieldClass;
 
 	UFUNCTION(BlueprintCallable, Category = "Skill")
 	void ActivateSkill();
+	
 	//Skill List
 	UFUNCTION(BlueprintCallable)
 	void ShootingSpellSkill();
 	UFUNCTION(BlueprintCallable)
 	void EarthWallSkill();
+	UFUNCTION(BlueprintCallable)
+	void WindShieldSkill();
+
+	
 
 
 	//Skill UI

@@ -25,6 +25,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Widget")
 	TMap<EWeaponType, UTexture2D*> IconMaps;
+
+	UPROPERTY(EditAnywhere)
+	EWeaponType CurrentWeaponType;
+	
+	UFUNCTION()
+	EWeaponType GetCurrentWeaponType();
+	
 	
 	
 	

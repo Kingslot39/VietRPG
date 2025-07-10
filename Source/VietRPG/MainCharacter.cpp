@@ -6,7 +6,6 @@
 #include "PaperFlipbookComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
-#include "GameFramework/Controller.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -88,26 +87,46 @@ void AMainCharacter::ActivateSkill()
 	if(MainSkillWidget)
 	{
 		EElementTag SelectedSkill = MainSkillWidget->GetCurrentSkillTag();
-		switch (SelectedSkill)
+		EWeaponType SelectedWeapon = MainWeaponWidget->GetCurrentWeaponType();
+		// Staff + air
+		if(SelectedSkill == EElementTag::E_Air && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			case  EElementTag::E_Water:
-				// Activate Water skill
-				UE_LOG(LogTemp, Warning, TEXT("Water skill activated!"));
-				break;
-			case EElementTag::E_Fire:
-				// Activate Fire skill
-				UE_LOG(LogTemp, Warning, TEXT("Fire skill activated!"));
-			    ShootingSpellSkill();
-				break;
-			case  EElementTag::E_Earth:
-				// Activate Earth skill
-				UE_LOG(LogTemp, Warning, TEXT("Earth skill activated!"));
-			    EarthWallSkill();
-				break;
-			case  EElementTag::E_Air:
-				// Activate Air skill
-				UE_LOG(LogTemp, Warning, TEXT("Air skill activated!"));
-				break;
+			WindShieldSkill();
+		}
+		//Staff + earth
+		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Staff)
+		{
+			EarthWallSkill();
+		}
+		//Staff + fire
+		else if(SelectedSkill == EElementTag::E_Fire && SelectedWeapon == EWeaponType::E_Staff)
+		{
+			ShootingSpellSkill();
+		}
+		//Staff + water
+		else if(SelectedSkill == EElementTag::E_Water && SelectedWeapon == EWeaponType::E_Staff)
+		{
+			
+		}
+		// Sword + air
+		else if(SelectedSkill == EElementTag::E_Air && SelectedWeapon == EWeaponType::E_Sword)
+		{
+			// Implement sword + air skill
+		}
+		// Sword + earth
+		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Sword)
+		{
+			
+		}
+		// Sword + fire
+		else if(SelectedSkill == EElementTag::E_Fire && SelectedWeapon == EWeaponType::E_Sword)
+		{
+			// Implement sword + fire skill
+		}
+		// Sword + water
+		else if(SelectedSkill == EElementTag::E_Water && SelectedWeapon == EWeaponType::E_Sword)
+		{
+			// Implement sword + water skill
 		}
 	}
 }
@@ -143,6 +162,24 @@ void AMainCharacter::EarthWallSkill()
 	FRotator SpawnRotation = FRotator::ZeroRotator;
 
 	GetWorld()->SpawnActor<AActor>(EarthWallClass, SpawnLocation, SpawnRotation);
+}
+
+void AMainCharacter::WindShieldSkill()
+{
+	if(WindShieldClass)
+	{
+		FVector SpawnLocation = GetActorLocation();
+		FRotator SpawnRotation = FRotator::ZeroRotator;
+		AWindShield* WindShield = GetWorld()->SpawnActor<AWindShield>(WindShieldClass, SpawnLocation, SpawnRotation);
+		if (WindShield)
+		{
+			WindShield->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Failed to spawn WindShield"));
+		}
+	}
 }
 
 void AMainCharacter::ShowSkillWheel()
