@@ -185,8 +185,12 @@ void AMainCharacter::WindShieldSkill()
 void AMainCharacter::ShowSkillWheel()
 {
 	bIsSkillWheelVisible = true;
-	UGameplayStatics::SetGlobalTimeDilation(GetWorld(),0.1);
-	if ((!SkillWheelWidget && SkillWheelWidgetClass)&&(!WeaponWheelWidget && WeaponWheelWidgetClass))
+
+	// Slow down time
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 0.1f);
+
+	// Always create SkillWheel if it's not created yet
+	if (!SkillWheelWidget && SkillWheelWidgetClass)
 	{
 		SkillWheelWidget = CreateWidget<USkillWheelWidget>(GetWorld(), SkillWheelWidgetClass);
 		if (SkillWheelWidget)
@@ -194,6 +198,13 @@ void AMainCharacter::ShowSkillWheel()
 			SkillWheelWidget->AddToViewport();
 			SkillWheelWidget->OnSkillSelected.AddDynamic(this, &AMainCharacter::OnSkillSelected);
 		}
+	}
+
+	// Always create WeaponWheel if it's not created yet
+	UE_LOG(LogTemp, Warning, TEXT("WeaponWheelWidget = %s"), WeaponWheelWidget ? TEXT("Valid") : TEXT("NULL"));
+	UE_LOG(LogTemp, Warning, TEXT("WeaponWheelWidgetClass = %s"), WeaponWheelWidgetClass ? TEXT("Valid") : TEXT("NULL"));
+	if (!WeaponWheelWidget && WeaponWheelWidgetClass)
+	{
 		WeaponWheelWidget = CreateWidget<UWeaponWheelWidget>(GetWorld(), WeaponWheelWidgetClass);
 		if (WeaponWheelWidget)
 		{
@@ -201,9 +212,15 @@ void AMainCharacter::ShowSkillWheel()
 			WeaponWheelWidget->OnWeaponSelected.AddDynamic(this, &AMainCharacter::OnWeaponSelected);
 		}
 	}
-	else if ((WeaponWheelWidget) && (SkillWheelWidget))
+
+	// Set visibility for both widgets
+	if (SkillWheelWidget)
 	{
 		SkillWheelWidget->SetVisibility(ESlateVisibility::Visible);
+	}
+
+	if (WeaponWheelWidget)
+	{
 		WeaponWheelWidget->SetVisibility(ESlateVisibility::Visible);
 	}
 	
