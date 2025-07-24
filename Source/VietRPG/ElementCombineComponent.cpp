@@ -3,6 +3,9 @@
 
 #include "ElementCombineComponent.h"
 
+#include "Enemy.h"
+#include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 #include "UObject/CookEnums.h"
 
 // Sets default values for this component's properties
@@ -54,19 +57,54 @@ void UElementCombineComponent::ApplyElement(EElementTag NewElementTag)
 
 void UElementCombineComponent::CheckComboEffect()
 {
+	TArray<AActor*> AffectedActors;
+	float Radius = 500.f;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACharacter::StaticClass(), AffectedActors);
+
 	// Water + Fire
 	if((FirstElementTag == EElementTag::E_Water && SecondElementTag == EElementTag::E_Fire) ||
 	   (FirstElementTag == EElementTag::E_Fire && SecondElementTag == EElementTag::E_Water))
 	{
-		// Apply Steam effect
-		UE_LOG(LogTemp, Warning, TEXT("Steam effect applied!"));
+		
+		for (AActor* Actor : AffectedActors)
+		{
+			// You can also use Cast<AEnemy>(Actor) or Cast<ABoss>(Actor) if needed
+			if (Actor->ActorHasTag("Enemy") || Actor->ActorHasTag("Boss"))
+			{
+				// Apply a custom effect, e.g., freeze for 5 seconds
+				if (AEnemy* Enemy = Cast<AEnemy>(Actor))
+				{
+					Enemy->PosionSmokeStart(1.2, 5);
+				}
+				//else if (ABoss* Boss = Cast<ABoss>(Actor))
+				//{
+				//	Boss->ApplyFullFreeze(5.0f);
+				//}
+			}
+		}
 	}
 	//Water + Earth
 	else if((FirstElementTag == EElementTag::E_Water && SecondElementTag == EElementTag::E_Earth) ||
 	        (FirstElementTag == EElementTag::E_Earth && SecondElementTag == EElementTag::E_Water))
 	{
 		// Apply Mud effect
-		UE_LOG(LogTemp, Warning, TEXT("Mud effect applied!"));
+		UE_LOG(LogTemp, Warning, TEXT("Freeze applied"));
+		for (AActor* Actor : AffectedActors)
+		{
+			// You can also use Cast<AEnemy>(Actor) or Cast<ABoss>(Actor) if needed
+			if (Actor->ActorHasTag("Enemy") || Actor->ActorHasTag("Boss"))
+			{
+				// Apply a custom effect, e.g., freeze for 5 seconds
+				if (AEnemy* Enemy = Cast<AEnemy>(Actor))
+				{
+					Enemy->Freeze(5);
+				}
+				//else if (ABoss* Boss = Cast<ABoss>(Actor))
+				//{
+				//	Boss->ApplyFullFreeze(5.0f);
+				//}
+			}
+		}
 	}
 	// Water + Air
 	else if((FirstElementTag == EElementTag::E_Water && SecondElementTag == EElementTag::E_Air) ||

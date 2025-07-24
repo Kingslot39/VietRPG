@@ -14,6 +14,7 @@
 #include "MainWeaponWidget.h"
 #include "SkillWheelWidget.h"
 #include "Spell.h"
+#include "WaterSwordSlice.h"
 #include "WeaponWheelWidget.h"
 #include "WindShield.h"
 #include "MainCharacter.generated.h"
@@ -96,6 +97,8 @@ public:
 	TSubclassOf<AEarthWall>EarthWallClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AWindShield>WindShieldClass;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TSubclassOf<AWaterSwordSlice>WaterSwordSliceClass;
 
 	UFUNCTION(BlueprintCallable, Category = "Skill")
 	void ActivateSkill();
@@ -107,8 +110,12 @@ public:
 	void EarthWallSkill();
 	UFUNCTION(BlueprintCallable)
 	void WindShieldSkill();
+	UFUNCTION(BlueprintCallable)
+	void WaterSwordSlice();
 
-	
+
+	//Find Enemy
+	AActor* NearestEnemy(FVector2D Origin);
 
 
 	//Skill UI

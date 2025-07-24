@@ -40,6 +40,9 @@ public:
 
 	void Move(float DeltaTime);
 
+	UPROPERTY(EditAnywhere)
+	UPaperFlipbookComponent* SpriteComponent;
+
 	// Set animation depending on state
 	void UpdateAnimation();
 
@@ -50,4 +53,21 @@ public:
 	//Element tag
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UElementCombineComponent* ElementCombineComponent;
+
+	//Skill apply
+
+	//PosionSmoke
+	FTimerHandle DotDamageTimerHandle;
+	float DotDamageAmount;
+	float DotDuration;
+	float DotTimeElapsed;
+	void PosionSmokeStart(float Damage,float Duration);
+	void PosionSmokeApply();
+
+	//Freeze
+	bool bIsFreeze;
+	FTimerHandle FreezeTimeHandle;
+	void Freeze(float Duration);
+	void UnFreeze();
+	
 };

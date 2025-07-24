@@ -4,6 +4,7 @@
 #include "MainCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "PaperFlipbookComponent.h"
+#include "Enemy.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "Kismet/GameplayStatics.h"
@@ -53,6 +54,7 @@ void AMainCharacter::UpdateAnimation()
 			if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
 			{
 				GetSprite()->SetFlipbook(JumpAnimation);
+				GetSprite()->SetRelativeScale3D(FVector(0.2f, 0.2f, 0.2f));
 			}
 		}
 
@@ -77,6 +79,8 @@ void AMainCharacter::UpdateAnimation()
 			if (IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
 			{
 				GetSprite()->SetFlipbook(IdleAnimation);
+				GetSprite()->SetRelativeScale3D(FVector(0.2f, 0.2f, 0.2f));
+				
 			}
 		}
 }
@@ -126,7 +130,7 @@ void AMainCharacter::ActivateSkill()
 		// Sword + water
 		else if(SelectedSkill == EElementTag::E_Water && SelectedWeapon == EWeaponType::E_Sword)
 		{
-			// Implement sword + water skill
+			WaterSwordSlice();
 		}
 	}
 }
@@ -137,7 +141,7 @@ void AMainCharacter::ShootingSpellSkill()
 	{
 		float FacingDirection = GetSprite()->GetRelativeScale3D().X;
 		FVector Offset = FVector(50.f * FacingDirection, 0.f, 0.f);
-		FVector SpawnLocation = GetActorLocation() + Offset;
+		FVector SpawnLocation = GetActorLocation() + Offset + FVector(80,0,0);
 		FRotator SpawnRotation = FRotator::ZeroRotator;
 
 		FActorSpawnParameters SpawnParams;
@@ -181,6 +185,49 @@ void AMainCharacter::WindShieldSkill()
 		}
 	}
 }
+AActor* AMainCharacter::NearestEnemy(FVector2D Origin)
+{
+	float ClosestDistSq = FLT_MAX;
+	AActor* NearestEnemy = nullptr;
+
+	TArray<AActor*> Enemies;
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Enemy"), Enemies);
+
+	for (AActor* Enemy : Enemies)
+	{
+		FVector2D EnemyLocation2D(Enemy->GetActorLocation().X, Enemy->GetActorLocation().Y);
+		float DistSq = FVector2D::DistSquared(Origin, EnemyLocation2D);
+
+		if (DistSq < ClosestDistSq)
+		{
+			ClosestDistSq = DistSq;
+			NearestEnemy = Enemy;
+		}
+	}
+
+	return NearestEnemy;
+	
+}
+void AMainCharacter::WaterSwordSlice()
+{
+	FVector SpawnLocation = GetActorLocation() + FVector(80,0,0); // or weapon socket
+	FRotator SpawnRotation = FRotator::ZeroRotator;
+
+	AWaterSwordSlice* Projectile = GetWorld()->SpawnActor<AWaterSwordSlice>(WaterSwordSliceClass, SpawnLocation, SpawnRotation);
+
+	if (Projectile)
+	{
+		FVector2D MyLocation2D(SpawnLocation.X, SpawnLocation.Y);
+		AActor* MyNearestEnemy = NearestEnemy(MyLocation2D);
+
+		if (MyNearestEnemy)
+		{
+			Projectile->SetDirection(MyNearestEnemy);
+		}
+	}
+}
+
+
 
 void AMainCharacter::ShowSkillWheel()
 {
@@ -394,11 +441,11 @@ void AMainCharacter::Move(const FInputActionValue& Value)
 			AddMovementInput(FVector(1.0f, 0.0f, 0.0f), MovementValue);
 			if (MovementValue < 0)
 			{
-				GetSprite()->SetRelativeScale3D(FVector(-1.f, 1.f, 1.f)); // Flip horizontally (face left)
+				GetSprite()->SetRelativeScale3D(FVector(-0.3f, 0.3f, 0.3f)); // Flip horizontally (face left)
 			}
 			else if (MovementValue > 0)
 			{
-				GetSprite()->SetRelativeScale3D(FVector(1.f, 1.f, 1.f)); // Default (face right)
+				GetSprite()->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f)); // Default (face right)
 			}
 		}
 		
