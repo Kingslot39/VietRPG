@@ -41,6 +41,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Element Combine")
 	void ApplyElement(EElementTag NewElementTag);
 
+	UFUNCTION(BlueprintCallable)
 	void CheckComboEffect();
 	void ResetElement();	
 

@@ -11,7 +11,7 @@ AEnemy::AEnemy()
 
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = false;
-	ElementCombineComponent = CreateDefaultSubobject<UElementCombineComponent>(TEXT("Element Component"));
+	//ElementCombineComponent = CreateDefaultSubobject<UElementCombineComponent>(TEXT("Element Component"));
 
 	CurrentHealth = MaxHealth = 100.f;
 }

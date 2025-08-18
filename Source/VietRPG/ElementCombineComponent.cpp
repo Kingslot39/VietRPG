@@ -33,6 +33,7 @@ void UElementCombineComponent::BeginPlay()
 void UElementCombineComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	CheckComboEffect();
 
 	// ...
 }
@@ -58,7 +59,6 @@ void UElementCombineComponent::ApplyElement(EElementTag NewElementTag)
 void UElementCombineComponent::CheckComboEffect()
 {
 	TArray<AActor*> AffectedActors;
-	float Radius = 500.f;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACharacter::StaticClass(), AffectedActors);
 
 	// Water + Fire

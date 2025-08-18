@@ -60,6 +60,8 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 	UInputAction* WeaponWheelSelectActionUp;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* WeaponWheelSelectDown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* Dashing;
 	
 	
 
@@ -70,6 +72,10 @@ public:
 	float CurrentHealth;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float MaxHealth;
+
+	//Movement
+	UFUNCTION(BlueprintCallable, Category = "Movement")
+	void CharacterDashing();
 
 	//Flipbook animations
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -84,6 +90,11 @@ public:
 	virtual void Jump() override;
 	FTimerHandle LandingDelayHandle;
 	virtual void Landed(const FHitResult& Hit) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Movement")
+	FVector TeleportFoward();
+
+	
 
 	void UpdateAnimation();
 
@@ -126,7 +137,7 @@ public:
 	UPROPERTY()
 	UMainSkillWidget* MainSkillWidget;
 	UPROPERTY()
-	USkillWheelWidget* SkillWheelWidget;
+	USkillWheelWidget* SkillWheelWidget; 
 
 	//Weapon UI
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")

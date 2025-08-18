@@ -51,8 +51,8 @@ public:
 	void GetDamage(float DamageAmount);
 
 	//Element tag
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UElementCombineComponent* ElementCombineComponent;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//UElementCombineComponent* ElementCombineComponent;
 
 	//Skill apply
 

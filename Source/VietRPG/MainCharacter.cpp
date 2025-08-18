@@ -15,6 +15,11 @@ AMainCharacter::AMainCharacter()
 	
 }
 
+void AMainCharacter::CharacterDashing()
+{
+	
+}
+
 
 void AMainCharacter::Jump()
 {
@@ -29,7 +34,6 @@ void AMainCharacter::Jump()
 void AMainCharacter::Landed(const FHitResult& Hit)
 {
 		Super::Landed(Hit);
-
 		if (LandingAnimation && GetSprite()->GetFlipbook() != LandingAnimation)
 		{
 			GetSprite()->SetFlipbook(LandingAnimation);
@@ -45,6 +49,32 @@ void AMainCharacter::Landed(const FHitResult& Hit)
 		);
 }
 
+FVector AMainCharacter::TeleportFoward()
+{
+	float TeleportDistance = 500.f;
+
+	FVector CurrentLocation = GetActorLocation();
+	FVector NewLocation = CurrentLocation;
+
+	// Determine if we're facing right or left (using sprite flip or scale)
+	bool bFacingRight = GetSprite()->GetRelativeScale3D().X > 0;
+
+	if (bFacingRight)
+	{
+		// Move to the right
+		NewLocation.X += TeleportDistance;
+	}
+	else
+	{
+		// Move to the left
+		NewLocation.X -= TeleportDistance;
+	}
+    return NewLocation;
+	// Instantly teleport to new location
+	//SetActorLocation(NewLocation, false, nullptr, ETeleportType::TeleportPhysics);
+}
+
+
 
 void AMainCharacter::UpdateAnimation()
 {
@@ -54,7 +84,7 @@ void AMainCharacter::UpdateAnimation()
 			if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
 			{
 				GetSprite()->SetFlipbook(JumpAnimation);
-				GetSprite()->SetRelativeScale3D(FVector(0.2f, 0.2f, 0.2f));
+				GetSprite()->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f));
 			}
 		}
 
@@ -79,7 +109,7 @@ void AMainCharacter::UpdateAnimation()
 			if (IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
 			{
 				GetSprite()->SetFlipbook(IdleAnimation);
-				GetSprite()->SetRelativeScale3D(FVector(0.2f, 0.2f, 0.2f));
+				GetSprite()->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f));
 				
 			}
 		}

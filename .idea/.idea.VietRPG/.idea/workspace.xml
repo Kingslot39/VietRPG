@@ -12,27 +12,39 @@
   <component name="ChangeListManager">
     <list default="true" id="c5fbc6ea-8fe6-47c9-baa3-6fd23015c1e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/GM_Game.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/crep_idle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/crep_idle.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MainCharacter/BP_MainCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/BP_MainCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_Spell.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_Spell.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_WaterSwordSlice.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_WaterSwordSlice.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Map/2DMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/2DMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_0.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/idle.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/idle1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/idle_Sprite_0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/idle_Sprite_1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/idle_Sprite_2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/idle_Sprite_3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Flipbook/FP_IdieChar.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Flipbook/FP_Jump_Char.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Flipbook/FP_Land_Char.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Flipbook/FP_Run_Char.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_10.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_11.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_12.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_13.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_6.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_7.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_8.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/Sprite/Character_Sprite_9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Character/main.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Character/main.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/ElementCombineComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/ElementCombineComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/ElementCombineComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/ElementCombineComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Enemy.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Enemy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +53,51 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -477,6 +534,17 @@
       <workItem from="1752070880547" duration="2241000" />
       <workItem from="1752125317668" duration="1971000" />
       <workItem from="1753347309879" duration="3160000" />
+      <workItem from="1753351457905" duration="1262000" />
+      <workItem from="1753431322917" duration="1333000" />
+      <workItem from="1753708384512" duration="3134000" />
+      <workItem from="1754053727505" duration="29000" />
+      <workItem from="1754053776522" duration="1797000" />
+      <workItem from="1754319541373" duration="441000" />
+      <workItem from="1754923188963" duration="714000" />
+      <workItem from="1754926559425" duration="495000" />
+      <workItem from="1754928080307" duration="413000" />
+      <workItem from="1755006093901" duration="2679000" />
+      <workItem from="1755526485698" duration="652000" />
     </task>
     <servers />
   </component>
