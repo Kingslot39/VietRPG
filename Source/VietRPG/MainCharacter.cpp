@@ -84,7 +84,7 @@ void AMainCharacter::UpdateAnimation()
 			if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
 			{
 				GetSprite()->SetFlipbook(JumpAnimation);
-				GetSprite()->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f));
+				
 			}
 		}
 
@@ -109,7 +109,7 @@ void AMainCharacter::UpdateAnimation()
 			if (IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
 			{
 				GetSprite()->SetFlipbook(IdleAnimation);
-				GetSprite()->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f));
+				
 				
 			}
 		}
@@ -471,11 +471,11 @@ void AMainCharacter::Move(const FInputActionValue& Value)
 			AddMovementInput(FVector(1.0f, 0.0f, 0.0f), MovementValue);
 			if (MovementValue < 0)
 			{
-				GetSprite()->SetRelativeScale3D(FVector(-0.3f, 0.3f, 0.3f)); // Flip horizontally (face left)
+				GetSprite()->SetRelativeScale3D(FVector(-2.0f, 2.0f, 2.0f)); // Flip horizontally (face left)
 			}
 			else if (MovementValue > 0)
 			{
-				GetSprite()->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f)); // Default (face right)
+				GetSprite()->SetRelativeScale3D(FVector(2.0f, 2.0f, 2.0f)); // Default (face right)
 			}
 		}
 		
