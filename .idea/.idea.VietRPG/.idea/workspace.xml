@@ -12,19 +12,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5fbc6ea-8fe6-47c9-baa3-6fd23015c1e6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/GM_GameScene.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/GM_GameScene.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/BP_MainCharacter.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/IMC_Platforming.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/IMC_Platforming.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/BP_MainTest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/BP_MainTest.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_4.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_4.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump_Sprite_6.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_EarthWall.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_EarthWall.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_6.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/running_Sprite_7.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/sprint.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/main_idel.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite1_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite2_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite3_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite4_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite5_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite6.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprite/sprite6_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idel-ngon.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idle-2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idle-2_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idle-2_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idle-2_Sprite_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idle-2_Sprite_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idle-2_Sprite_4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/idle/idle-2_Sprite_5.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Map/2DMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/2DMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/BP_MainSkillWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_MainSkillWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/BP_MainWeaponWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_MainWeaponWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/BP_WeaponWheelWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_WeaponWheelWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PaperAsset/Environment/TM_Test.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PaperAsset/Environment/TM_Test.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +73,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateInstancesImpl.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
@@ -59,7 +97,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;big-change&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -574,6 +612,20 @@
       <workItem from="1757082025422" duration="409000" />
       <workItem from="1757083084570" duration="728000" />
       <workItem from="1757849502595" duration="5827000" />
+      <workItem from="1759759246560" duration="1068000" />
+      <workItem from="1760261167068" duration="841000" />
+      <workItem from="1762161906695" duration="894000" />
+      <workItem from="1762265441171" duration="2050000" />
+      <workItem from="1762952607225" duration="5799000" />
+      <workItem from="1763194844888" duration="4417000" />
+      <workItem from="1763303760083" duration="846000" />
+      <workItem from="1763393670703" duration="2183000" />
+      <workItem from="1764167147441" duration="3706000" />
+      <workItem from="1764311828487" duration="5648000" />
+      <workItem from="1764341428304" duration="1768000" />
+      <workItem from="1764403304381" duration="4742000" />
+      <workItem from="1764424307705" duration="6198000" />
+      <workItem from="1764512766216" duration="1629000" />
     </task>
     <servers />
   </component>

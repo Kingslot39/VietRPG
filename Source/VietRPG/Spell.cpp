@@ -16,8 +16,8 @@ ASpell::ASpell()
 	SpellSprite->SetCollisionProfileName("OverlapAllDynamic");
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
-	ProjectileMovement->InitialSpeed = 2000.0f;
-	ProjectileMovement->MaxSpeed = 2000.0f;
+	ProjectileMovement->InitialSpeed = 4000.0f;
+	ProjectileMovement->MaxSpeed = 4000.0f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->ProjectileGravityScale = 0.f;
 

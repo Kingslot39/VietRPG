@@ -15,21 +15,38 @@ AMainCharacter::AMainCharacter()
 	
 }
 
-void AMainCharacter::CharacterDashing()
-{
-	
+bool AMainCharacter::SetIsDashing(bool NewDashing)
+{ 
+	bIsDashing = NewDashing;
+	return bIsDashing;
 }
 
-
-void AMainCharacter::Jump()
+void AMainCharacter::CheckIsJumping()
 {
-	Super::Jump();
-	if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
+	if (GetCharacterMovement()->Velocity.Z > 0.1f)
 	{
-		GetSprite()->SetFlipbook(JumpAnimation);
+		bIsJumping = true;
+	}
+	else
+	{
+		bIsJumping = false;
 	}
 }
 
+void AMainCharacter::JumpingIsNot()
+{
+	bIsJumping = false;
+}
+
+void AMainCharacter::StopDashing()
+{
+	bIsDashing = false;
+	if (GetCharacterMovement()->IsFalling())
+	{
+		if (JumpAnimation)
+			GetSprite()->SetFlipbook(JumpAnimation);
+	}
+}
 
 void AMainCharacter::Landed(const FHitResult& Hit)
 {
@@ -52,7 +69,7 @@ void AMainCharacter::Landed(const FHitResult& Hit)
 FVector AMainCharacter::TeleportFoward()
 {
 	float TeleportDistance = 500.f;
-
+    
 	FVector CurrentLocation = GetActorLocation();
 	FVector NewLocation = CurrentLocation;
 
@@ -79,15 +96,9 @@ FVector AMainCharacter::TeleportFoward()
 void AMainCharacter::UpdateAnimation()
 {
 		// If in air
-		if (GetCharacterMovement()->IsFalling())
-		{
-			if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
-			{
-				GetSprite()->SetFlipbook(JumpAnimation);
-				
-			}
-		}
+	  
 
+	
 		// Not falling = on ground
 		// Avoid overwriting LandingAnimation too soon
 		if (GetWorldTimerManager().IsTimerActive(LandingDelayHandle))
@@ -96,12 +107,64 @@ void AMainCharacter::UpdateAnimation()
 		}
 
 		float Speed = GetVelocity().SizeSquared();
+	   
 
 		if (Speed > 0.0f)
 		{
-			if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+			if ( bIsDashing && DashAnimation)
 			{
-				GetSprite()->SetFlipbook(WalkAnimation);
+				GetSprite()->SetFlipbook(DashAnimation);
+				GetWorldTimerManager().SetTimer(StopDashingTimer,this,&AMainCharacter::StopDashing,0.08f,false);
+			}
+			else if (bIsShootingAir && WindShootAnimation)
+			{
+				GetSprite()->SetFlipbook(WindShootAnimation);
+			}
+			// 2. Wall Rising
+			else if (bWallRising && WallRisingAnimation)
+			{
+				GetSprite()->SetFlipbook(WallRisingAnimation);
+			}
+			else if (bIsJumping)
+			{
+				GetSprite()->SetFlipbook(JumpAnimation);
+			}
+			// 3. Running (Fallback / Default)
+			if (!GetCharacterMovement()->IsFalling()) 
+			{
+				if (Speed > 0.0f && !bIsDashing && !bIsShootingAir)
+				{
+					if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+					{
+						GetSprite()->SetFlipbook(WalkAnimation);
+					}
+				}
+			}
+		}
+		else if (bIsDashing)
+		{
+			if (DashAnimation && GetSprite()->GetFlipbook() != DashAnimation)
+			{
+				GetSprite()->SetFlipbook(DashAnimation);
+				GetWorldTimerManager().SetTimer(StopDashingTimer,this,&AMainCharacter::StopDashing,0.08f,false);
+			}
+		}
+	    else if (bIsJumping)
+	    {
+	    	GetSprite()->SetFlipbook(JumpAnimation);
+	    }
+		else if  (bIsShootingAir)
+		{
+			if (WindShootAnimation && GetSprite()->GetFlipbook() != WindShootAnimation)
+			{
+				GetSprite()->SetFlipbook(WindShootAnimation);
+			}
+		}
+		else if(bWallRising)
+		{
+			if (WallRisingAnimation && GetSprite()->GetFlipbook() != WallRisingAnimation)
+			{
+				GetSprite()->SetFlipbook(WallRisingAnimation);
 			}
 		}
 		else
@@ -109,10 +172,9 @@ void AMainCharacter::UpdateAnimation()
 			if (IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
 			{
 				GetSprite()->SetFlipbook(IdleAnimation);
-				
-				
 			}
 		}
+	    
 }
 
 
@@ -120,22 +182,36 @@ void AMainCharacter::ActivateSkill()
 {
 	if(MainSkillWidget)
 	{
+	    if (SkillAnimation){
+	      GetSprite()->SetFlipbook(SkillAnimation);
+	    	GetSprite()->SetRelativeScale3D(FVector(1, 1, 1));
+	    }
 		EElementTag SelectedSkill = MainSkillWidget->GetCurrentSkillTag();
 		EWeaponType SelectedWeapon = MainWeaponWidget->GetCurrentWeaponType();
 		// Staff + air
 		if(SelectedSkill == EElementTag::E_Air && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			WindShieldSkill();
+			//ShootingSpellSkill();
 		}
 		//Staff + earth
 		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Staff)
 		{
 			EarthWallSkill();
+			bWallRising = true;
+			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::EarthWallSkill, 0.47f, false);
+			GetSprite()->SetFlipbook(WallRisingAnimation);
+			GetCharacterMovement()->DisableMovement();
+			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.47f, false);
 		}
 		//Staff + fire
 		else if(SelectedSkill == EElementTag::E_Fire && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			ShootingSpellSkill();
+			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::ShootingSpellSkill, 0.47f, false);
+			bIsShootingAir = true;
+			GetSprite()->SetFlipbook(WindShootAnimation);
+			GetCharacterMovement()->DisableMovement();
+			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.47f, false);
+		
 		}
 		//Staff + water
 		else if(SelectedSkill == EElementTag::E_Water && SelectedWeapon == EWeaponType::E_Staff)
@@ -169,6 +245,8 @@ void AMainCharacter::ShootingSpellSkill()
 {
 	if (SpellClass)
 	{
+		bIsShootingAir = false;
+		
 		float FacingDirection = GetSprite()->GetRelativeScale3D().X;
 		FVector Offset = FVector(50.f * FacingDirection, 0.f, 0.f);
 		FVector SpawnLocation = GetActorLocation() + Offset + FVector(80,0,0);
@@ -177,25 +255,31 @@ void AMainCharacter::ShootingSpellSkill()
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
 		SpawnParams.Instigator = this;
-
 		ASpell* Projectile = GetWorld()->SpawnActor<ASpell>(SpellClass, SpawnLocation, SpawnRotation, SpawnParams);
 
 		if (Projectile)
 		{
 			Projectile->SetDirection(FacingDirection);
 		}
+		
 	}
+	
 }
 
 void AMainCharacter::EarthWallSkill()
 {
-	FVector SpawnLocation = GetActorLocation() - FVector(0,0,100);
-	FVector FacingOffset = GetActorForwardVector() * 100.0f; // Adjust distance
-	SpawnLocation += FacingOffset;
+	if (EarthWallClass)
+	{
+		bWallRising = true;
+		FVector SpawnLocation = GetActorLocation() - FVector(0,0,110);
+		FVector FacingOffset = GetActorForwardVector() * 100.0f; // Adjust distance
+		SpawnLocation += FacingOffset;
 
-	FRotator SpawnRotation = FRotator::ZeroRotator;
-
-	GetWorld()->SpawnActor<AActor>(EarthWallClass, SpawnLocation, SpawnRotation);
+		FRotator SpawnRotation = FRotator::ZeroRotator;
+		GetWorld()->SpawnActor<AActor>(EarthWallClass, SpawnLocation, SpawnRotation);
+		
+	}
+	bWallRising = false;
 }
 
 void AMainCharacter::WindShieldSkill()
@@ -257,6 +341,10 @@ void AMainCharacter::WaterSwordSlice()
 	}
 }
 
+void AMainCharacter::EnableMovement()
+{
+	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+}
 
 
 void AMainCharacter::ShowSkillWheel()
@@ -393,6 +481,7 @@ void AMainCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	UpdateAnimation();
+	CheckIsJumping();
 }
 
 void AMainCharacter::BeginPlay()
@@ -471,11 +560,11 @@ void AMainCharacter::Move(const FInputActionValue& Value)
 			AddMovementInput(FVector(1.0f, 0.0f, 0.0f), MovementValue);
 			if (MovementValue < 0)
 			{
-				GetSprite()->SetRelativeScale3D(FVector(-2.0f, 2.0f, 2.0f)); // Flip horizontally (face left)
+				GetSprite()->SetRelativeScale3D(FVector(-0.5f, 0.5f, 0.5f)); // Flip horizontally (face left)
 			}
 			else if (MovementValue > 0)
 			{
-				GetSprite()->SetRelativeScale3D(FVector(2.0f, 2.0f, 2.0f)); // Default (face right)
+				GetSprite()->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.5f)); // Default (face right)
 			}
 		}
 		

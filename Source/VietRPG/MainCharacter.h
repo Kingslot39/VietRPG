@@ -73,10 +73,6 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float MaxHealth;
 
-	//Movement
-	UFUNCTION(BlueprintCallable, Category = "Movement")
-	void CharacterDashing();
-
 	//Flipbook animations
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbook* IdleAnimation;
@@ -86,8 +82,29 @@ public:
 	UPaperFlipbook* JumpAnimation;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UPaperFlipbook* LandingAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* SkillAnimation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbook* DashAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* WindShootAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* WallRisingAnimation;
 
-	virtual void Jump() override;
+	//Dashing
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	bool bIsDashing = false;
+    UFUNCTION(BlueprintCallable)
+	bool SetIsDashing(bool NewDashing);
+	
+	//Jumping / Landing
+	void CheckIsJumping();
+	void JumpingIsNot();
+	void StopDashing();
+	FTimerHandle StopDashingTimer;
+	FTimerHandle JumpTimer;
+	bool bIsJumping = false;
+	
 	FTimerHandle LandingDelayHandle;
 	virtual void Landed(const FHitResult& Hit) override;
 
@@ -95,7 +112,7 @@ public:
 	FVector TeleportFoward();
 
 	
-
+    UFUNCTION(BlueprintCallable)
 	void UpdateAnimation();
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
@@ -115,14 +132,28 @@ public:
 	void ActivateSkill();
 	
 	//Skill List
+	  // Projectile Skill
 	UFUNCTION(BlueprintCallable)
 	void ShootingSpellSkill();
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FTimerHandle ShootingAirTimerHandle;
+    bool bIsShootingAir = false; 
+	  //EarthWall
 	UFUNCTION(BlueprintCallable)
 	void EarthWallSkill();
+    bool bWallRising = false;
+	
 	UFUNCTION(BlueprintCallable)
 	void WindShieldSkill();
 	UFUNCTION(BlueprintCallable)
 	void WaterSwordSlice();
+
+	//Unable to move
+	UFUNCTION(BlueprintCallable)
+	void EnableMovement();
+	FTimerHandle DisableMovementTimerHandle;
+
+	
 
 
 	//Find Enemy
