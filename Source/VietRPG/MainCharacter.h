@@ -81,8 +81,6 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UPaperFlipbook* JumpAnimation;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	UPaperFlipbook* LandingAnimation;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UPaperFlipbook* SkillAnimation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbook* DashAnimation;
@@ -90,6 +88,12 @@ public:
 	UPaperFlipbook* WindShootAnimation;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UPaperFlipbook* WallRisingAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* SwordWalkAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* SwordIdleAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* AirWindShootAnimation;
 
 	//Dashing
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
@@ -106,7 +110,7 @@ public:
 	bool bIsJumping = false;
 	
 	FTimerHandle LandingDelayHandle;
-	virtual void Landed(const FHitResult& Hit) override;
+	
 
 	UFUNCTION(BlueprintCallable, Category = "Movement")
 	FVector TeleportFoward();
@@ -147,6 +151,9 @@ public:
 	void WindShieldSkill();
 	UFUNCTION(BlueprintCallable)
 	void WaterSwordSlice();
+
+	//Choosing ani for skill
+	void ChooseSkillAnimation(EWeaponType SelectedWeapon);
 
 	//Unable to move
 	UFUNCTION(BlueprintCallable)

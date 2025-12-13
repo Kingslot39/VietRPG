@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "PaperFlipbookComponent.h"
 #include "Enemy.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "Kismet/GameplayStatics.h"
@@ -23,14 +24,31 @@ bool AMainCharacter::SetIsDashing(bool NewDashing)
 
 void AMainCharacter::CheckIsJumping()
 {
-	if (GetCharacterMovement()->Velocity.Z > 0.1f)
-	{
-		bIsJumping = true;
-	}
-	else
-	{
-		bIsJumping = false;
-	}
+	UCapsuleComponent* Capsule = GetCapsuleComponent();
+
+	if (!Capsule) return;
+
+	const float CapsuleHalfHeight = Capsule->GetScaledCapsuleHalfHeight();
+	const float GroundCheckDistance = 5.0f; // small tolerance
+
+	FVector Start = GetActorLocation();
+	FVector End = Start - FVector(0.f, 0.f, CapsuleHalfHeight + GroundCheckDistance);
+
+	FHitResult Hit;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	bool bOnGround = GetWorld()->LineTraceSingleByChannel(
+		Hit,
+		Start,
+		End,
+		ECC_Visibility,
+		Params
+	);
+
+	// Jumping = NOT touching ground
+	bIsJumping = !bOnGround;
+
 }
 
 void AMainCharacter::JumpingIsNot()
@@ -48,23 +66,7 @@ void AMainCharacter::StopDashing()
 	}
 }
 
-void AMainCharacter::Landed(const FHitResult& Hit)
-{
-		Super::Landed(Hit);
-		if (LandingAnimation && GetSprite()->GetFlipbook() != LandingAnimation)
-		{
-			GetSprite()->SetFlipbook(LandingAnimation);
-		}
 
-		// Delay return to idle/walk after landing animation duration
-		GetWorldTimerManager().SetTimer(
-			LandingDelayHandle,
-			this,
-			&AMainCharacter::UpdateAnimation,
-			0.2, // Length of your landing animation
-			false
-		);
-}
 
 FVector AMainCharacter::TeleportFoward()
 {
@@ -95,69 +97,82 @@ FVector AMainCharacter::TeleportFoward()
 
 void AMainCharacter::UpdateAnimation()
 {
-		// If in air
-	  
+	if (GetWorldTimerManager().IsTimerActive(LandingDelayHandle))
+	{
+		return;
+	}
 
-	
-		// Not falling = on ground
-		// Avoid overwriting LandingAnimation too soon
-		if (GetWorldTimerManager().IsTimerActive(LandingDelayHandle))
+	EWeaponType SelectedWeapon = MainWeaponWidget->GetCurrentWeaponType();
+	float Speed = GetVelocity().Size();
+
+	bool bInAir = GetCharacterMovement()->IsFalling();
+
+	// --------------------------
+	// 1. DASH (highest priority)
+	// --------------------------
+	if (bIsDashing && DashAnimation)
+	{
+		if (GetSprite()->GetFlipbook() != DashAnimation)
 		{
-			return; // Wait until landing animation finishes
+			GetSprite()->SetFlipbook(DashAnimation);
+			GetWorldTimerManager().SetTimer(
+				StopDashingTimer, this, &AMainCharacter::StopDashing,
+				0.08f, false
+			);
 		}
-
-		float Speed = GetVelocity().SizeSquared();
-	   
-
-		if (Speed > 0.0f)
+		return;
+	}
+	// ----------------------
+	// 3. JUMP / FALL
+	// ----------------------
+	if (bInAir)
+	{
+		if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
 		{
-			if ( bIsDashing && DashAnimation)
+			GetSprite()->SetFlipbook(JumpAnimation);
+		}
+		return;
+	}
+
+	// ----------------------
+	// 4. MOVING
+	// ----------------------
+	if (Speed > 1.0f)
+	{
+		if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+		{
+			GetSprite()->SetFlipbook(WalkAnimation);
+		}
+		return;
+	}
+
+	// ----------------------
+	// 5. IDLE
+	// ----------------------
+	ChooseSkillAnimation(SelectedWeapon);
+}
+
+void AMainCharacter::ChooseSkillAnimation(EWeaponType SelectedWeapon)
+{
+	if ( SelectedWeapon == EWeaponType::E_Staff)
+	{
+		
+		if (bIsShootingAir)
+		{
+			
+			if (bIsJumping)
 			{
-				GetSprite()->SetFlipbook(DashAnimation);
-				GetWorldTimerManager().SetTimer(StopDashingTimer,this,&AMainCharacter::StopDashing,0.08f,false);
-			}
-			else if (bIsShootingAir && WindShootAnimation)
-			{
-				GetSprite()->SetFlipbook(WindShootAnimation);
-			}
-			// 2. Wall Rising
-			else if (bWallRising && WallRisingAnimation)
-			{
-				GetSprite()->SetFlipbook(WallRisingAnimation);
-			}
-			else if (bIsJumping)
-			{
-				GetSprite()->SetFlipbook(JumpAnimation);
-			}
-			// 3. Running (Fallback / Default)
-			if (!GetCharacterMovement()->IsFalling()) 
-			{
-				if (Speed > 0.0f && !bIsDashing && !bIsShootingAir)
+				if (AirWindShootAnimation && GetSprite()->GetFlipbook() != AirWindShootAnimation)
 				{
-					if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
-					{
-						GetSprite()->SetFlipbook(WalkAnimation);
-					}
+					GetSprite()->SetFlipbook(AirWindShootAnimation);
 				}
 			}
-		}
-		else if (bIsDashing)
-		{
-			if (DashAnimation && GetSprite()->GetFlipbook() != DashAnimation)
+			else
 			{
-				GetSprite()->SetFlipbook(DashAnimation);
-				GetWorldTimerManager().SetTimer(StopDashingTimer,this,&AMainCharacter::StopDashing,0.08f,false);
-			}
-		}
-	    else if (bIsJumping)
-	    {
-	    	GetSprite()->SetFlipbook(JumpAnimation);
-	    }
-		else if  (bIsShootingAir)
-		{
-			if (WindShootAnimation && GetSprite()->GetFlipbook() != WindShootAnimation)
-			{
-				GetSprite()->SetFlipbook(WindShootAnimation);
+				if (WindShootAnimation && GetSprite()->GetFlipbook() != WindShootAnimation)
+				{
+					GetSprite()->SetFlipbook(WindShootAnimation);
+				}
 			}
 		}
 		else if(bWallRising)
@@ -174,7 +189,7 @@ void AMainCharacter::UpdateAnimation()
 				GetSprite()->SetFlipbook(IdleAnimation);
 			}
 		}
-	    
+	}
 }
 
 
@@ -198,19 +213,19 @@ void AMainCharacter::ActivateSkill()
 		{
 			EarthWallSkill();
 			bWallRising = true;
-			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::EarthWallSkill, 0.47f, false);
+			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::EarthWallSkill, 1.0f, false);
 			GetSprite()->SetFlipbook(WallRisingAnimation);
 			GetCharacterMovement()->DisableMovement();
-			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.47f, false);
+			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 1.0f, false);
+			
 		}
 		//Staff + fire
 		else if(SelectedSkill == EElementTag::E_Fire && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::ShootingSpellSkill, 0.47f, false);
+			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::ShootingSpellSkill, 0.3f, false);
 			bIsShootingAir = true;
-			GetSprite()->SetFlipbook(WindShootAnimation);
 			GetCharacterMovement()->DisableMovement();
-			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.47f, false);
+			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
 		
 		}
 		//Staff + water
@@ -340,6 +355,9 @@ void AMainCharacter::WaterSwordSlice()
 		}
 	}
 }
+
+
+
 
 void AMainCharacter::EnableMovement()
 {
