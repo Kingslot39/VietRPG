@@ -81,7 +81,69 @@ void AMainCharacter::UpdateAnimation()
 		// If in air
 		if (GetCharacterMovement()->IsFalling())
 		{
+<<<<<<< Updated upstream
 			if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
+=======
+			GetSprite()->SetFlipbook(DashAnimation);
+			GetWorldTimerManager().SetTimer(
+				StopDashingTimer, this, &AMainCharacter::StopDashing,
+				0.08f, false
+			);
+		}
+		return;
+	}
+	// ----------------------
+	// 3. JUMP / FALL
+	// ----------------------
+	if (bInAir)
+	{
+		if (JumpAnimation && GetSprite()->GetFlipbook() != JumpAnimation)
+		{
+			GetSprite()->SetFlipbook(JumpAnimation);
+		}
+		return;
+	}
+
+	// ----------------------
+	// 4. MOVING
+	// ----------------------
+	if (Speed > 1.0f)
+	{
+		if (SelectedWeapon == EWeaponType::E_Sword)
+		{
+			if (SwordWalkAnimation && GetSprite()->GetFlipbook() != SwordWalkAnimation)
+			{
+				GetSprite()->SetFlipbook(SwordWalkAnimation);
+			}
+			return;
+		}
+		else if (SelectedWeapon == EWeaponType::E_Staff)
+		{
+			if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+			{
+				GetSprite()->SetFlipbook(WalkAnimation);
+			}
+			return;
+		}
+		
+	}
+
+	// ----------------------
+	// 5. IDLE
+	// ----------------------
+	ChooseSkillAnimation(SelectedWeapon);
+}
+
+void AMainCharacter::ChooseSkillAnimation(EWeaponType SelectedWeapon)
+{
+	if ( SelectedWeapon == EWeaponType::E_Staff)
+	{
+		
+		if (bIsShootingAir)
+		{
+			
+			if (bIsJumping)
+>>>>>>> Stashed changes
 			{
 				GetSprite()->SetFlipbook(JumpAnimation);
 				GetSprite()->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f));
@@ -113,6 +175,18 @@ void AMainCharacter::UpdateAnimation()
 				
 			}
 		}
+<<<<<<< Updated upstream
+=======
+	}
+	else if (SelectedWeapon == EWeaponType::E_Sword)
+	{
+			if (SwordIdleAnimation && GetSprite()->GetFlipbook() != SwordIdleAnimation)
+			{
+				GetSprite()->SetFlipbook(SwordIdleAnimation);
+			}
+		
+	}
+>>>>>>> Stashed changes
 }
 
 
