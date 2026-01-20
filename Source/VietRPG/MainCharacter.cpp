@@ -139,11 +139,22 @@ void AMainCharacter::UpdateAnimation()
 	// ----------------------
 	if (Speed > 1.0f)
 	{
-		if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+		if (SelectedWeapon == EWeaponType::E_Staff)
 		{
-			GetSprite()->SetFlipbook(WalkAnimation);
+			if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
+			{
+				GetSprite()->SetFlipbook(WalkAnimation);
+			}
+			return;
 		}
-		return;
+		else if (SelectedWeapon == EWeaponType::E_Sword)
+		{
+			if (SwordWalkAnimation && GetSprite()->GetFlipbook() != SwordWalkAnimation)
+			{
+				GetSprite()->SetFlipbook(SwordWalkAnimation);
+			}
+			return;
+		}
 	}
 
 	// ----------------------
@@ -189,6 +200,34 @@ void AMainCharacter::ChooseSkillAnimation(EWeaponType SelectedWeapon)
 				GetSprite()->SetFlipbook(IdleAnimation);
 			}
 		}
+	}
+	if (SelectedWeapon == EWeaponType::E_Sword)
+	{
+		if (bSwordRising)
+		{
+			if (StoneSwordAnimation && GetSprite()->GetFlipbook() != StoneSwordAnimation)
+			{
+				GetSprite()->SetFlipbook(StoneSwordAnimation);
+			}
+		}
+		else
+		{
+			if (GetVelocity().Size() > 1.0f)
+			{
+				if (SwordWalkAnimation && GetSprite()->GetFlipbook() != SwordWalkAnimation)
+				{
+					GetSprite()->SetFlipbook(SwordWalkAnimation);
+				}
+			}
+			else
+			{
+				if (SwordIdleAnimation && GetSprite()->GetFlipbook() != SwordIdleAnimation)
+				{
+					GetSprite()->SetFlipbook(SwordIdleAnimation);
+				}
+			}
+		}
+		
 	}
 }
 
@@ -241,6 +280,13 @@ void AMainCharacter::ActivateSkill()
 		// Sword + earth
 		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Sword)
 		{
+			GetWorldTimerManager().SetTimer(StoneSwordTimerHandle, this, &AMainCharacter::StoneSwordSkill, 0.3f, false);
+			bSwordRising = true;
+			GetSprite()->SetFlipbook(StoneSwordAnimation);
+			GetCharacterMovement()->DisableMovement();
+			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
+			
+			
 			
 		}
 		// Sword + fire
@@ -261,23 +307,36 @@ void AMainCharacter::ShootingSpellSkill()
 	if (SpellClass)
 	{
 		bIsShootingAir = false;
-		
-		float FacingDirection = GetSprite()->GetRelativeScale3D().X;
-		FVector Offset = FVector(50.f * FacingDirection, 0.f, 0.f);
-		FVector SpawnLocation = GetActorLocation() + Offset + FVector(80,0,0);
+
+		// +1 = right, -1 = left
+		float FacingDirection = FMath::Sign(GetSprite()->GetRelativeScale3D().X);
+
+		// Distance in front of the character
+		const float ForwardOffset = 130.f;
+
+		FVector SpawnLocation =
+			GetActorLocation() +
+			FVector(ForwardOffset * FacingDirection, 0.f, 0.f);
+
 		FRotator SpawnRotation = FRotator::ZeroRotator;
 
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
 		SpawnParams.Instigator = this;
-		ASpell* Projectile = GetWorld()->SpawnActor<ASpell>(SpellClass, SpawnLocation, SpawnRotation, SpawnParams);
+
+		ASpell* Projectile = GetWorld()->SpawnActor<ASpell>(
+			SpellClass,
+			SpawnLocation,
+			SpawnRotation,
+			SpawnParams
+		);
 
 		if (Projectile)
 		{
 			Projectile->SetDirection(FacingDirection);
 		}
-		
 	}
+
 	
 }
 
@@ -297,23 +356,32 @@ void AMainCharacter::EarthWallSkill()
 	bWallRising = false;
 }
 
-void AMainCharacter::WindShieldSkill()
+void AMainCharacter::StoneSwordSkill()
 {
-	if(WindShieldClass)
+	if (bSwordRising)
 	{
-		FVector SpawnLocation = GetActorLocation();
+		bSwordRising = false;
+		if (!StoneRiftBulletClass) return;
+
+		FVector ActorLocation = GetActorLocation();
 		FRotator SpawnRotation = FRotator::ZeroRotator;
-		AWindShield* WindShield = GetWorld()->SpawnActor<AWindShield>(WindShieldClass, SpawnLocation, SpawnRotation);
-		if (WindShield)
-		{
-			WindShield->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Failed to spawn WindShield"));
-		}
+
+		// How far from the character center
+		const float SideOffset = 60.f;
+
+		// RIGHT spawn location
+		FVector RightSpawnLocation = ActorLocation + FVector(SideOffset, 0.f, 0.f) - FVector(0,0,50);
+		AStoneRiftBullet* RightProjectile =GetWorld()->SpawnActor<AStoneRiftBullet>(StoneRiftBulletClass,RightSpawnLocation,SpawnRotation);
+		RightProjectile->SetMoveDirection(1.f); // move right
+		
+		
+
+		
+		
 	}
 }
+
+
 AActor* AMainCharacter::NearestEnemy(FVector2D Origin)
 {
 	float ClosestDistSq = FLT_MAX;

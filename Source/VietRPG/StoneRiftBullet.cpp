@@ -1,55 +1,53 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Spell.h"
+#include "StoneRiftBullet.h"
 
-#include "Enemy.h"
+#include "PaperFlipbookComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
 // Sets default values
-ASpell::ASpell()
+AStoneRiftBullet::AStoneRiftBullet()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
 	SpellSprite = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook"));
 	RootComponent = SpellSprite;
+
 	SpellSprite->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SpellSprite->SetCollisionProfileName("OverlapAllDynamic");
 
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
-	ProjectileMovement->InitialSpeed = 4000.0f;
-	ProjectileMovement->MaxSpeed = 4000.0f;
-	ProjectileMovement->bRotationFollowsVelocity = true;
-	ProjectileMovement->ProjectileGravityScale = 0.f;
+	// IMPORTANT: no absolute scale
+	SpellSprite->SetRelativeScale3D(FVector(1.f, 1.f, 1.f));
+
+	Speed = 1200.f;
+	MoveDirection = 1.f;
 
 	InitialLifeSpan = LifeSpan;
 
 }
 
-void ASpell::SetDirection(float Direction)
+void AStoneRiftBullet::SetMoveDirection(float Direction)
 {
-	if (ProjectileMovement)
-	{
-		ProjectileMovement->Velocity = FVector(ProjectileMovement->InitialSpeed * Direction, 0.f, 0.f);
-	}
-
-	// Flip sprite if going left
-
+	MoveDirection = FMath::Sign(Direction);
 }
 
-
-
-
 // Called when the game starts or when spawned
-void ASpell::BeginPlay()
+void AStoneRiftBullet::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void ASpell::Tick(float DeltaTime)
+void AStoneRiftBullet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FVector Location = GetActorLocation();
+	Location.X += MoveDirection * Speed * DeltaTime;
+
+	SetActorLocation(Location, true);
 
 }
 

@@ -14,6 +14,7 @@
 #include "MainWeaponWidget.h"
 #include "SkillWheelWidget.h"
 #include "Spell.h"
+#include "StoneRiftBullet.h"
 #include "WaterSwordSlice.h"
 #include "WeaponWheelWidget.h"
 #include "WindShield.h"
@@ -94,6 +95,10 @@ public:
 	UPaperFlipbook* SwordIdleAnimation;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UPaperFlipbook* AirWindShootAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* StoneSwordAnimation;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPaperFlipbook* SwordDashAnimation;
 
 	//Dashing
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
@@ -131,6 +136,9 @@ public:
 	TSubclassOf<AWindShield>WindShieldClass;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TSubclassOf<AWaterSwordSlice>WaterSwordSliceClass;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TSubclassOf<AStoneRiftBullet>StoneRiftBulletClass;
+	
 
 	UFUNCTION(BlueprintCallable, Category = "Skill")
 	void ActivateSkill();
@@ -147,8 +155,13 @@ public:
 	void EarthWallSkill();
     bool bWallRising = false;
 	
+	//Stone Sword Skill
+	FTimerHandle StoneSwordTimerHandle;
 	UFUNCTION(BlueprintCallable)
-	void WindShieldSkill();
+	void StoneSwordSkill();
+	bool bSwordRising = false;
+
+	// Water Sword Slice
 	UFUNCTION(BlueprintCallable)
 	void WaterSwordSlice();
 

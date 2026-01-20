@@ -13,12 +13,26 @@
   <component name="ChangeListManager">
     <list default="true" id="c5fbc6ea-8fe6-47c9-baa3-6fd23015c1e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/boss1wip.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/boss1wip_Sprite_0.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MainCharacter/BP_MainTest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/BP_MainTest.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Jump/jump1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Skill/ShootAir/cast1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Skill/ShootAir/cast1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/Flying.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_6.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_7.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Map/2DMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/2DMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VietRPG.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/VietRPG.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/VietRPG.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/VietRPG.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VietRPG.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/VietRPG.uproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +46,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://8" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateInstancesImpl.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/Boss1.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/Boss1.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderAIController.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderAIController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/StoneRiftBullet.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/StoneRiftBullet.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -54,7 +74,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "C++ Project.VietRPG.executor": "Run",
-    "C/C++ Project.VietRPG.executor": "Debug",
+    "C/C++ Project.VietRPG.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -593,6 +613,15 @@
       <workItem from="1765442330272" duration="4017000" />
       <workItem from="1765458627217" duration="2315000" />
       <workItem from="1765625600454" duration="6715000" />
+      <workItem from="1766805309707" duration="2455000" />
+      <workItem from="1766998570031" duration="1768000" />
+      <workItem from="1767018375449" duration="1952000" />
+      <workItem from="1767105903450" duration="2120000" />
+      <workItem from="1767595953455" duration="6111000" />
+      <workItem from="1767619147049" duration="605000" />
+      <workItem from="1767859179707" duration="2051000" />
+      <workItem from="1767971312684" duration="671000" />
+      <workItem from="1768914229842" duration="5288000" />
     </task>
     <servers />
   </component>
