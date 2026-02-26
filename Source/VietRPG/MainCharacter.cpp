@@ -16,6 +16,25 @@ AMainCharacter::AMainCharacter()
 	
 }
 
+void AMainCharacter::TakeDamage(float DamageAmount)
+{
+	if (bShieldActive)
+	{
+		return;
+	}
+	CurrentHealth -= DamageAmount;
+	if (CurrentHealth <= 0)
+	{
+		// Handle death (e.g., play animation, disable input, etc.)
+		CurrentHealth = 0;
+	}
+}
+
+void AMainCharacter::Heal(float HealAmount)
+{
+	return;
+}
+
 bool AMainCharacter::SetIsDashing(bool NewDashing)
 { 
 	bIsDashing = NewDashing;
@@ -210,6 +229,8 @@ void AMainCharacter::ChooseSkillAnimation(EWeaponType SelectedWeapon)
 				GetSprite()->SetFlipbook(StoneSwordAnimation);
 			}
 		}
+	
+		
 		else
 		{
 			if (GetVelocity().Size() > 1.0f)
@@ -276,6 +297,10 @@ void AMainCharacter::ActivateSkill()
 		else if(SelectedSkill == EElementTag::E_Air && SelectedWeapon == EWeaponType::E_Sword)
 		{
 			// Implement sword + air skill
+			GetWorldTimerManager().SetTimer(SwordDashTimerHandle, this, &AMainCharacter::SwordDash, 0.4f, false);
+			bSwordDash = true;
+			GetCharacterMovement()->DisableMovement();
+			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.4f, false);
 		}
 		// Sword + earth
 		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Sword)
@@ -306,8 +331,7 @@ void AMainCharacter::ShootingSpellSkill()
 {
 	if (SpellClass)
 	{
-		bIsShootingAir = false;
-
+       bIsShootingAir = false;
 		// +1 = right, -1 = left
 		float FacingDirection = FMath::Sign(GetSprite()->GetRelativeScale3D().X);
 
@@ -382,6 +406,20 @@ void AMainCharacter::StoneSwordSkill()
 }
 
 
+void AMainCharacter::TapShield()
+{
+	bShieldActive = true;
+	GetWorldTimerManager().SetTimer(
+		ShieldTimerHandle,
+		[this]()
+		{
+			bShieldActive = false;
+		},
+		ShieldDuration,
+		false
+	);
+}
+
 AActor* AMainCharacter::NearestEnemy(FVector2D Origin)
 {
 	float ClosestDistSq = FLT_MAX;
@@ -424,7 +462,60 @@ void AMainCharacter::WaterSwordSlice()
 	}
 }
 
+void AMainCharacter::SwordDash()
+{
+	if (bSwordDash)
+	{
+		bSwordDash = false;
+		FVector Start = GetActorLocation();
 
+		// Left / Right only
+		float Direction = GetActorForwardVector().X >= 0.f ? 1.f : -1.f;
+		FVector DashDir(Direction, 0.f, 0.f);
+
+		FVector End = Start + DashDir * 800.f;
+
+		FHitResult Hit;
+		FCollisionQueryParams Params;
+		Params.AddIgnoredActor(this);
+
+		bool bHit = GetWorld()->LineTraceSingleByChannel(
+			Hit,
+			Start,
+			End,
+			ECC_Pawn,
+			Params
+		);
+
+		FVector TargetLocation = End;
+		AEnemy* Enemy = Cast<AEnemy>(Hit.GetActor());
+
+		if (bHit && Enemy)
+		{
+			TargetLocation = Hit.Location - DashDir * 80.f;
+		}
+
+		// Lock to 2D plane
+		TargetLocation.Y = Start.Y;
+		TargetLocation.Z = Start.Z;
+
+		// Stop movement before teleport
+		GetCharacterMovement()->StopMovementImmediately();
+
+		// Teleport WITHOUT sweep (important for 2D dash)
+		SetActorLocation(TargetLocation, false);
+
+		// Force dash animation
+		if (SwordDashAnimation)
+		{
+			GetSprite()->SetFlipbook(SwordDashAnimation);
+			GetSprite()->PlayFromStart();
+		}
+		
+	}
+	
+	
+}
 
 
 void AMainCharacter::EnableMovement()
@@ -612,6 +703,7 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Started, this, &AMainCharacter::ActivateSkill);
+		EnhancedInputComponent->BindAction(Block, ETriggerEvent::Started, this, &AMainCharacter::TapShield);
 
 		EnhancedInputComponent->BindAction(SkillWheelAction, ETriggerEvent::Started, this, &AMainCharacter::ShowSkillWheel);
 		EnhancedInputComponent->BindAction(SkillWheelAction, ETriggerEvent::Completed, this, &AMainCharacter::HideSkillWheel);

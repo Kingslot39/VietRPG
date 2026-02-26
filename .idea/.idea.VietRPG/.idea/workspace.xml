@@ -13,26 +13,26 @@
   <component name="ChangeListManager">
     <list default="true" id="c5fbc6ea-8fe6-47c9-baa3-6fd23015c1e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/boss1wip.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/boss1wip_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/BP_Enemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/BP_TheElder.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/Boss/BP_TheElder.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/crep_idle.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/crip1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/crip1_Sprite_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/crip1_Sprite_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/crip1_Sprite_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/IMC_Platforming.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/IMC_Platforming.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MainCharacter/BP_MainTest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/BP_MainTest.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/Flying.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_4.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_6.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_7.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Sprint/flying-2_Sprite_9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_Spell.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainCharacter/Skill/BP_Spell.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Map/2DMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/2DMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/BP_SkillWheelWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Boss1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Boss1.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Boss1.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Boss1.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Enemy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Spell.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/VietRPG.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/VietRPG.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VietRPG.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/VietRPG.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VietRPG.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/VietRPG.sln.DotSettings.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,19 +46,30 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateInstancesImpl.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/CoreUObject/Public/Templates/Casts.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Games/UE_5.4/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/BTService_SelectRandomSkill.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/BTService_SelectRandomSkill.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/BTT_AirSphere.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/BTT_AirSphere.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/Boss1.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/Boss1.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderAIController.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderAIController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderStoneRift.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderStoneRift.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderWaterSphere.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderWaterSphere.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderWindSphere.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/VietRPG/ElderWindSphere.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/StoneRiftBullet.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/VietRPG/StoneRiftBullet.h" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -71,22 +82,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C++ Project.VietRPG.executor": "Run",
-    "C/C++ Project.VietRPG.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "big-change",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C++ Project.VietRPG.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ Project.VietRPG.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;big-change&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="C/C++ Project.VietRPG">
     <configuration name="UE5" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -622,12 +633,32 @@
       <workItem from="1767859179707" duration="2051000" />
       <workItem from="1767971312684" duration="671000" />
       <workItem from="1768914229842" duration="5288000" />
+      <workItem from="1768967552382" duration="839000" />
+      <workItem from="1768975780349" duration="7511000" />
+      <workItem from="1769005860454" duration="1508000" />
+      <workItem from="1769069236083" duration="1325000" />
+      <workItem from="1769757622740" duration="4763000" />
+      <workItem from="1769865057839" duration="7458000" />
+      <workItem from="1769926519281" duration="6935000" />
+      <workItem from="1769952601900" duration="2797000" />
+      <workItem from="1769955442586" duration="1232000" />
+      <workItem from="1770102558024" duration="1415000" />
+      <workItem from="1770104423744" duration="3710000" />
+      <workItem from="1770124336520" duration="1300000" />
+      <workItem from="1770216874646" duration="815000" />
+      <workItem from="1770360530681" duration="2675000" />
+      <workItem from="1771033028950" duration="7554000" />
+      <workItem from="1771305437888" duration="9149000" />
+      <workItem from="1771380815862" duration="6241000" />
+      <workItem from="1771419374608" duration="116000" />
+      <workItem from="1771496414091" duration="976000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

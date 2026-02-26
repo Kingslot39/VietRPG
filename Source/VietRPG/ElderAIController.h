@@ -39,5 +39,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	AMainCharacter* TargetPlayer;
-	
+
+	void Shoot();
 };

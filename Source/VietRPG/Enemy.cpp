@@ -31,23 +31,7 @@ void AEnemy::Move(float DeltaTime)
 	AddMovementInput(FVector(Direction,0,0), MoveSpeed * DeltaTime);
 }
 
-void AEnemy::UpdateAnimation()
-{
-	if(GetVelocity().SizeSquared()>0)
-	{
-		if (WalkAnimation && GetSprite()->GetFlipbook() != WalkAnimation)
-		{
-			GetSprite()->SetFlipbook(WalkAnimation);
-		}
-	}
-	else
-	{
-		if(IdleAnimation && GetSprite()->GetFlipbook() != IdleAnimation)
-		{
-			GetSprite()->SetFlipbook(IdleAnimation);
-		}
-	}
-}
+
 
 void AEnemy::GetDamage(float DamageAmount)
 {

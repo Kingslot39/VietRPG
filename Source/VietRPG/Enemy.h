@@ -44,7 +44,7 @@ public:
 	UPaperFlipbookComponent* SpriteComponent;
 
 	// Set animation depending on state
-	void UpdateAnimation();
+	
 
 	//Get Damage
 	UFUNCTION(BlueprintCallable)

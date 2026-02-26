@@ -42,6 +42,8 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillWheelAction;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* Block;
     //Skill Select
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SkillWheelSelectAction;
@@ -100,6 +102,10 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UPaperFlipbook* SwordDashAnimation;
 
+	// Health
+	void TakeDamage(float DamageAmount);
+	
+	void Heal(float HealAmount);
 	//Dashing
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool bIsDashing = false;
@@ -165,6 +171,22 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void WaterSwordSlice();
 
+	// Sword Dash
+	UFUNCTION(BlueprintCallable)
+	void SwordDash();
+	bool bSwordDash = false;
+	FTimerHandle SwordDashTimerHandle;
+
+	UPROPERTY(EditAnywhere, Category="Dash")
+	float DashDistance = 500.f;
+
+	UPROPERTY(EditAnywhere, Category="Dash")
+	float DashSpeed = 3000.f;
+
+	UPROPERTY(EditAnywhere, Category="Dash")
+	float StopOffset = 100.f; // Stop before enemy
+	
+
 	//Choosing ani for skill
 	void ChooseSkillAnimation(EWeaponType SelectedWeapon);
 
@@ -172,6 +194,22 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EnableMovement();
 	FTimerHandle DisableMovementTimerHandle;
+
+
+	//Parry
+	bool bShieldActive = false;
+	
+
+	// Timing
+	UPROPERTY(EditAnywhere, Category="Shield")
+	float ShieldDuration = 0.35f;
+	
+
+	// Timers
+	FTimerHandle ShieldTimerHandle;
+	FTimerHandle ShieldCooldownHandle;
+
+	void TapShield();
 
 	
 

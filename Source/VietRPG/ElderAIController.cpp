@@ -31,3 +31,12 @@ UBlackboardComponent* AElderAIController::GetBlackboardComp() const
 {
 	return BlackboardComponent;
 }
+
+void AElderAIController::Shoot()
+{
+	ABoss1* Boss1 = Cast<ABoss1>(GetPawn());
+	if(Boss1)
+	{
+		Boss1->ShootTwice();
+	}
+}
