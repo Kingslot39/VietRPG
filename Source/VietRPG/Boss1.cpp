@@ -25,6 +25,15 @@ void ABoss1::UpdateAnimation()
 		if (MeditateAnimation && GetSprite()->GetFlipbook() != MeditateAnimation)
 		{
 			GetSprite()->SetFlipbook(MeditateAnimation);
+			
+		}
+		return;
+	}
+	else if (bIsCastingFirePillar)
+	{
+		if (FirePillarAnimation && GetSprite()->GetFlipbook() != FirePillarAnimation)
+		{
+			GetSprite()->SetFlipbook(FirePillarAnimation);
 		}
 		return;
 	}
@@ -195,12 +204,11 @@ void ABoss1::Meditate()
 {
 	bIsMeditating = true;
 	CurrentSpawnCount = 0;
-
 	GetWorldTimerManager().SetTimer(
 		SpawnTimerHandle,
 		this,
 		&ABoss1::SpawnTrap,
-		SpawnInterval,
+		2.0f,
 		true
 	);
 	
@@ -209,6 +217,7 @@ void ABoss1::SpawnTrap()
 {
 	if (CurrentSpawnCount >= SpawnCountMax)
 	{
+		bIsMeditating = false;
 		GetWorldTimerManager().ClearTimer(SpawnTimerHandle);
 		return;
 	}
@@ -223,6 +232,65 @@ void ABoss1::SpawnTrap()
 	CurrentSpawnCount ++;
 }
 
+
+void ABoss1::FireStep()
+{
+	bIsCastingFirePillar= true;
+	GetWorldTimerManager().SetTimer(FirePillarTimer, this, &ABoss1::CastFirePillar, 0.7f, false);
+}
+
+void ABoss1::CastFirePillar()
+{
+	if (!FireColumnClass) return;
+
+	CurrentColumnCount = 0;
+
+	// Determine 2D direction (flip X scale method)
+	RockSpawnDirection = (Target->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+	CurrentSpawnLocation = GetActorLocation() - FVector(0,0,50);
+
+	// Start timer
+	GetWorldTimerManager().SetTimer(
+		FireColumnTimer,
+		this,
+		&ABoss1::SpawnFireColumn,
+		PillarSpawn,
+		true);
+}
+
+void ABoss1::SpawnFireColumn()
+{
+	bIsCastingFirePillar = false;
+	if (CurrentColumnCount >= MaxColumns)
+	{
+		GetWorldTimerManager().ClearTimer(FireColumnTimer);
+		return;
+	}
+
+	GetWorld()->SpawnActor<AActor>(
+		FireColumnClass,
+		CurrentSpawnLocation,
+		FRotator::ZeroRotator
+	);
+
+	// Move forward for next spawn
+	CurrentSpawnLocation += RockSpawnDirection * ColumnSpacing;
+	PillarSpawn = ColumnSpacing/WaveSpeed;
+	CurrentColumnCount++;
+
+	GetWorldTimerManager().SetTimer(
+	   StopFirePillarTimer,
+	   this,
+	   &ABoss1::StopFirePillar,
+	   5.f,
+	   false);
+}
+
+void ABoss1::StopFirePillar()
+{
+	GetWorldTimerManager().ClearTimer(FireColumnTimer);
+}
+
 void ABoss1::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -234,6 +302,7 @@ void ABoss1::BeginPlay()
 {
 	Super::BeginPlay();
 	Target = Cast<AMainCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	ShootTwice();
+	
+	
 	
 }

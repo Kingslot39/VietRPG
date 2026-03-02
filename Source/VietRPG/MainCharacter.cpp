@@ -25,8 +25,8 @@ void AMainCharacter::TakeDamage(float DamageAmount)
 	CurrentHealth -= DamageAmount;
 	if (CurrentHealth <= 0)
 	{
-		// Handle death (e.g., play animation, disable input, etc.)
-		CurrentHealth = 0;
+		//Handle death (e.g., play animation, disable input, etc.)
+	    CurrentHealth = 0;
 	}
 }
 

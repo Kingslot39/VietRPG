@@ -41,4 +41,6 @@ public:
 	AMainCharacter* TargetPlayer;
 
 	void Shoot();
+	void BossMeditate();
+	void FireSlam();
 };

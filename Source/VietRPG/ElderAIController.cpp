@@ -40,3 +40,21 @@ void AElderAIController::Shoot()
 		Boss1->ShootTwice();
 	}
 }
+
+void AElderAIController::BossMeditate()
+{
+  	ABoss1* Boss1 = Cast<ABoss1>(GetPawn());
+	if(Boss1)
+	{
+		Boss1->Meditate();
+	}
+}
+
+void AElderAIController::FireSlam()
+{
+	ABoss1* Boss1 = Cast<ABoss1>(GetPawn());
+	if(Boss1)
+	{
+		Boss1->FireStep();
+	}
+}
