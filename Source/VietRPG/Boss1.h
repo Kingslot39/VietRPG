@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ElderBossWidget.h"
 #include "ElderStoneRift.h"
 #include "ElderWaterSphere.h"
 #include "ElderWindSphere.h"
 #include "Enemy.h"
+#include "FireBloomPillar.h"
 #include "FireColumn.h"
 #include "MainCharacter.h"
 #include "Boss1.generated.h"
@@ -32,6 +34,8 @@ class VIETRPG_API ABoss1 : public AEnemy
 public:
 	ABoss1();
 
+	UFUNCTION(BlueprintCallable)
+	void DealDamage(float Damage);
 	void UpdateAnimation() ;
 	UPROPERTY(EditAnywhere,Blueprintreadwrite)
 	AMainCharacter* Target;
@@ -55,8 +59,8 @@ public:
 	// Stone Rift Jump
 	void SlamDown();
 	void StoneRiftJump();
-	void StoneShootTwice();
 	void StoneRiftShoot();
+	void WaitForJumpAni();
 	UPROPERTY(EditAnywhere,Blueprintreadwrite)
 	bool bIsJumpingStone = false;
 	UPROPERTY(EditAnywhere,Blueprintreadwrite)
@@ -89,22 +93,12 @@ public:
 	//Fire Step
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AFireColumn> FireColumnClass;
+	UPROPERTY(EditAnywhere,Blueprintreadwrite)
+	TSubclassOf<AFireBloomPillar> FireBloomPillarClass;
 	// Spawn settings
-	UPROPERTY(EditAnywhere)
-	float ColumnSpacing = 200.f;
-	UPROPERTY(EditAnywhere)
-	float PillarSpawn = 0.2f;
-	UPROPERTY(EditAnywhere)
-	float WaveSpeed = 5000.f;
-
-	UPROPERTY(EditAnywhere)
-	int32 MaxColumns = 10;
-
 	FTimerHandle FireColumnTimer;
     
-	int32 CurrentColumnCount = 0;
-	FVector CurrentSpawnLocation;
-	FVector RockSpawnDirection;
+
 
 	void FireStep();
 	void CastFirePillar();
@@ -115,8 +109,28 @@ public:
 	UPROPERTY(EditAnywhere,Blueprintreadwrite)
 	UPaperFlipbook* FirePillarAnimation;
 	FTimerHandle StopFirePillarTimer;
-	void StopFirePillar();
+	
 
+    //skill controll
+	bool bCanAirStrike = true;
+	bool bCanMeditate = true;
+	bool bCanFire = true;
+
+	FTimerHandle ResetSkillAirStrikeTimer;
+	FTimerHandle ResetSkillMeditateTimer;
+	FTimerHandle ResetSkillFireTimer;
+	void ResetSkillFromAirStrike();
+	void ResetSkillFromMeditate();
+	void ResetSkillFromFire();
+
+	//Widget
+    UPROPERTY(EditAnywhere,Blueprintreadwrite)
+	TSubclassOf<UElderBossWidget>ElderHealthBar;
+	UPROPERTY(EditAnywhere,Blueprintreadwrite)
+	UElderBossWidget* ElderBossWidget;
+
+	//Rotate
+	void FaceTarget();
 
 private:
 	void Tick(float DeltaSeconds) override;
@@ -127,3 +141,5 @@ private:
 	
 	
 };
+
+

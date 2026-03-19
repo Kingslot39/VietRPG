@@ -21,7 +21,7 @@ AStoneRiftBullet::AStoneRiftBullet()
 	// IMPORTANT: no absolute scale
 	SpellSprite->SetRelativeScale3D(FVector(1.f, 1.f, 1.f));
 
-	Speed = 1200.f;
+	Speed = 2000.f;
 	MoveDirection = 1.f;
 
 	InitialLifeSpan = LifeSpan;

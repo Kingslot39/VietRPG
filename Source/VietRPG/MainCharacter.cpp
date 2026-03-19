@@ -13,6 +13,8 @@
 
 AMainCharacter::AMainCharacter()
 {
+	MaxHealth = 300;
+	CurrentHealth = MaxHealth;
 	
 }
 
@@ -20,19 +22,27 @@ void AMainCharacter::TakeDamage(float DamageAmount)
 {
 	if (bShieldActive)
 	{
+		if (MainCharWidget)
+		{
+			MainCharWidget->UpdateHealthBar();
+		}
 		return;
 	}
 	CurrentHealth -= DamageAmount;
-	if (CurrentHealth <= 0)
+	if(MainCharWidget)
 	{
-		//Handle death (e.g., play animation, disable input, etc.)
-	    CurrentHealth = 0;
+		MainCharWidget->UpdateHealthBar();
 	}
+	
 }
 
-void AMainCharacter::Heal(float HealAmount)
+void AMainCharacter::Healing()
 {
-	return;
+	if (CheckEnergy(2))
+	{
+		CurrentHealth = FMath::Clamp(CurrentHealth + 60, 0.f, MaxHealth);
+		ConsumeEnergy(2);
+	}
 }
 
 bool AMainCharacter::SetIsDashing(bool NewDashing)
@@ -152,7 +162,14 @@ void AMainCharacter::UpdateAnimation()
 		}
 		return;
 	}
-
+    if (bShieldActive)
+    {
+	    if (ParryAnimation&& GetSprite()->GetFlipbook() != ParryAnimation)
+	    {
+		    GetSprite()->SetFlipbook(ParryAnimation);
+	    }
+    	return;
+    }
 	// ----------------------
 	// 4. MOVING
 	// ----------------------
@@ -229,8 +246,14 @@ void AMainCharacter::ChooseSkillAnimation(EWeaponType SelectedWeapon)
 				GetSprite()->SetFlipbook(StoneSwordAnimation);
 			}
 		}
+		else if (bSwordDash)
+		{
+			if (SwordDashAnimation && GetSprite()->GetFlipbook() != SwordDashAnimation)
+			{
+				GetSprite()->SetFlipbook(SwordDashAnimation);
+			}
+		}
 	
-		
 		else
 		{
 			if (GetVelocity().Size() > 1.0f)
@@ -266,26 +289,28 @@ void AMainCharacter::ActivateSkill()
 		// Staff + air
 		if(SelectedSkill == EElementTag::E_Air && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			//ShootingSpellSkill();
+			if (CheckEnergy(1))
+			{
+				GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::ShootingSpellSkill, 0.3f, false);
+				bIsShootingAir = true;
+				GetCharacterMovement()->DisableMovement();
+				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
+				ConsumeEnergy(1);
+			}
 		}
 		//Staff + earth
 		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			EarthWallSkill();
-			bWallRising = true;
-			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::EarthWallSkill, 1.0f, false);
-			GetSprite()->SetFlipbook(WallRisingAnimation);
-			GetCharacterMovement()->DisableMovement();
-			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 1.0f, false);
 			
+				bWallRising = true;
+				GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::EarthWallSkill, 0.3f, false);
+				GetCharacterMovement()->DisableMovement();
+				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
 		}
 		//Staff + fire
 		else if(SelectedSkill == EElementTag::E_Fire && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::ShootingSpellSkill, 0.3f, false);
-			bIsShootingAir = true;
-			GetCharacterMovement()->DisableMovement();
-			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
+			
 		
 		}
 		//Staff + water
@@ -296,23 +321,28 @@ void AMainCharacter::ActivateSkill()
 		// Sword + air
 		else if(SelectedSkill == EElementTag::E_Air && SelectedWeapon == EWeaponType::E_Sword)
 		{
-			// Implement sword + air skill
-			GetWorldTimerManager().SetTimer(SwordDashTimerHandle, this, &AMainCharacter::SwordDash, 0.4f, false);
-			bSwordDash = true;
-			GetCharacterMovement()->DisableMovement();
-			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.4f, false);
+			//if (CheckEnergy(1))
+			{
+				// Implement sword + air skill
+				GetWorldTimerManager().SetTimer(SwordDashTimerHandle, this, &AMainCharacter::SwordDash, 0.4f, false);
+				bSwordDash = true;
+				GetCharacterMovement()->DisableMovement();
+				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.4f, false);
+				//ConsumeEnergy(1);
+			}
 		}
 		// Sword + earth
 		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Sword)
 		{
-			GetWorldTimerManager().SetTimer(StoneSwordTimerHandle, this, &AMainCharacter::StoneSwordSkill, 0.3f, false);
-			bSwordRising = true;
-			GetSprite()->SetFlipbook(StoneSwordAnimation);
-			GetCharacterMovement()->DisableMovement();
-			GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
-			
-			
-			
+			//if (CheckEnergy(1))
+			{
+				GetWorldTimerManager().SetTimer(StoneSwordTimerHandle, this, &AMainCharacter::StoneSwordSkill, 0.3f, false);
+				bSwordRising = true;
+				GetSprite()->SetFlipbook(StoneSwordAnimation);
+				GetCharacterMovement()->DisableMovement();
+				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
+				//ConsumeEnergy(1);
+			}
 		}
 		// Sword + fire
 		else if(SelectedSkill == EElementTag::E_Fire && SelectedWeapon == EWeaponType::E_Sword)
@@ -322,7 +352,7 @@ void AMainCharacter::ActivateSkill()
 		// Sword + water
 		else if(SelectedSkill == EElementTag::E_Water && SelectedWeapon == EWeaponType::E_Sword)
 		{
-			WaterSwordSlice();
+			//WaterSwordSlice();
 		}
 	}
 }
@@ -368,16 +398,19 @@ void AMainCharacter::EarthWallSkill()
 {
 	if (EarthWallClass)
 	{
-		bWallRising = true;
-		FVector SpawnLocation = GetActorLocation() - FVector(0,0,110);
-		FVector FacingOffset = GetActorForwardVector() * 100.0f; // Adjust distance
-		SpawnLocation += FacingOffset;
+		bWallRising = false;
+		float HalfHeight = GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+		FActorSpawnParameters Params;
+		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
-		FRotator SpawnRotation = FRotator::ZeroRotator;
-		GetWorld()->SpawnActor<AActor>(EarthWallClass, SpawnLocation, SpawnRotation);
+		FVector SpawnLocation = GetActorLocation();
+		SpawnLocation.Z -= (HalfHeight + 10.f + 50.f);
 		
+		FRotator SpawnRotation = FRotator::ZeroRotator;
+		GetWorld()->SpawnActor<AActor>(EarthWallClass, SpawnLocation, SpawnRotation,Params);
+		GetCharacterMovement()->Velocity.Z = 0.f;
 	}
-	bWallRising = false;
+	
 }
 
 void AMainCharacter::StoneSwordSkill()
@@ -394,7 +427,7 @@ void AMainCharacter::StoneSwordSkill()
 		const float SideOffset = 60.f;
 
 		// RIGHT spawn location
-		FVector RightSpawnLocation = ActorLocation + FVector(SideOffset, 0.f, 0.f) - FVector(0,0,50);
+		FVector RightSpawnLocation = ActorLocation + FVector(SideOffset, 0.f, 0.f) - FVector(0,0,80);
 		AStoneRiftBullet* RightProjectile =GetWorld()->SpawnActor<AStoneRiftBullet>(StoneRiftBulletClass,RightSpawnLocation,SpawnRotation);
 		RightProjectile->SetMoveDirection(1.f); // move right
 		
@@ -405,10 +438,64 @@ void AMainCharacter::StoneSwordSkill()
 	}
 }
 
+void AMainCharacter::ConsumeEnergy(float Amount)
+{
+	for (int i = EnergyProgress.Num() - 1; i >= 0; i--)
+	{
+		if (EnergyProgress[i] > 0)
+		{
+			float Deduct = FMath::Min(EnergyProgress[i], Amount);
+			EnergyProgress[i] -= Deduct;
+			Amount -= Deduct;
+		}
+	}
+	
+	if (MainCharWidget)
+	{
+		MainCharWidget->UpdateCircleProgress(EnergyProgress);
+	}
+}
+
+bool AMainCharacter::CheckEnergy(float Amount)
+{
+	for (float Energy : EnergyProgress)
+	{
+		if (Energy >= Amount)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 void AMainCharacter::TapShield()
 {
+	if (bIsCanBlock)
+	{
+		bIsCanBlock = false;
+		GetWorldTimerManager().SetTimer(ShieldTimerTimerHandle, this, &AMainCharacter::ActivateShield, 0.1f, false);
+		GetWorldTimerManager().SetTimer(ResetBlockHandle,[this]()
+		{
+			bIsCanBlock= true;
+		},1.0f, false );
+	}
+}
+
+void AMainCharacter::ActivateShield()
+{
+	GetCharacterMovement()->DisableMovement();
 	bShieldActive = true;
+	float Direction = GetSprite()->GetComponentScale().X;
+
+	FVector SpawnLocation = GetActorLocation() + FVector(170 * Direction, 0, 50);
+	FRotator SpawnRotation = FRotator::ZeroRotator;
+
+	if (BlockingShieldClass)
+	{
+	  ABlockingShield* Shield =	 GetWorld()->SpawnActor<ABlockingShield>(BlockingShieldClass, SpawnLocation, SpawnRotation);
+		Shield->SetActorScale3D(FVector(Direction, 0.5, 0.5));// Flip if facing left
+		
+	}
 	GetWorldTimerManager().SetTimer(
 		ShieldTimerHandle,
 		[this]()
@@ -418,7 +505,30 @@ void AMainCharacter::TapShield()
 		ShieldDuration,
 		false
 	);
+	GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.2f, false);
 }
+void AMainCharacter::PerfectParry()
+{
+	float AmountToAdd = 0.5f;
+
+	for (int i = 0; i < EnergyProgress.Num(); i++)
+	{
+		if (EnergyProgress[i] < 1.0f)
+		{
+			EnergyProgress[i] += AmountToAdd;
+
+			if (EnergyProgress[i] > 1.0f)
+				EnergyProgress[i] = 1.0f;
+
+			break; // VERY IMPORTANT
+		}
+	}
+	if (MainCharWidget)
+	{
+		MainCharWidget->UpdateCircleProgress(EnergyProgress);
+	}
+}
+
 
 AActor* AMainCharacter::NearestEnemy(FVector2D Origin)
 {
@@ -467,63 +577,27 @@ void AMainCharacter::SwordDash()
 	if (bSwordDash)
 	{
 		bSwordDash = false;
-		FVector Start = GetActorLocation();
-
-		// Left / Right only
-		float Direction = GetActorForwardVector().X >= 0.f ? 1.f : -1.f;
-		FVector DashDir(Direction, 0.f, 0.f);
-
-		FVector End = Start + DashDir * 800.f;
-
-		FHitResult Hit;
-		FCollisionQueryParams Params;
-		Params.AddIgnoredActor(this);
-
-		bool bHit = GetWorld()->LineTraceSingleByChannel(
-			Hit,
-			Start,
-			End,
-			ECC_Pawn,
-			Params
-		);
-
-		FVector TargetLocation = End;
-		AEnemy* Enemy = Cast<AEnemy>(Hit.GetActor());
-
-		if (bHit && Enemy)
-		{
-			TargetLocation = Hit.Location - DashDir * 80.f;
-		}
-
-		// Lock to 2D plane
-		TargetLocation.Y = Start.Y;
-		TargetLocation.Z = Start.Z;
-
+	
 		// Stop movement before teleport
 		GetCharacterMovement()->StopMovementImmediately();
-
-		// Teleport WITHOUT sweep (important for 2D dash)
-		SetActorLocation(TargetLocation, false);
-
-		// Force dash animation
-		if (SwordDashAnimation)
-		{
-			GetSprite()->SetFlipbook(SwordDashAnimation);
-			GetSprite()->PlayFromStart();
-		}
 		
-	}
-	
-	
-}
+		float SwordDirection = GetSprite()->GetComponentScale().X;
 
+		FVector SwordSpawnLocation = GetActorLocation() + FVector(160 * SwordDirection, 0, 50);
+		FRotator SwordSpawnRotation = FRotator::ZeroRotator;
+
+		if (WindSliceClass)
+		{
+			AWindSlice* Sword =	 GetWorld()->SpawnActor<AWindSlice>(WindSliceClass, SwordSpawnLocation, SwordSpawnRotation);
+			//Sword->SetActorScale3D(FVector(SwordDirection, 0.5, 0.5));// Flip if facing left
+		}
+	}
+}
 
 void AMainCharacter::EnableMovement()
 {
 	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 }
-
-
 void AMainCharacter::ShowSkillWheel()
 {
 	bIsSkillWheelVisible = true;
@@ -545,7 +619,7 @@ void AMainCharacter::ShowSkillWheel()
 	// Always create WeaponWheel if it's not created yet
 	UE_LOG(LogTemp, Warning, TEXT("WeaponWheelWidget = %s"), WeaponWheelWidget ? TEXT("Valid") : TEXT("NULL"));
 	UE_LOG(LogTemp, Warning, TEXT("WeaponWheelWidgetClass = %s"), WeaponWheelWidgetClass ? TEXT("Valid") : TEXT("NULL"));
-	if (!WeaponWheelWidget && WeaponWheelWidgetClass)
+	if (WeaponWheelWidget && WeaponWheelWidgetClass)
 	{
 		WeaponWheelWidget = CreateWidget<UWeaponWheelWidget>(GetWorld(), WeaponWheelWidgetClass);
 		if (WeaponWheelWidget)
@@ -554,7 +628,6 @@ void AMainCharacter::ShowSkillWheel()
 			WeaponWheelWidget->OnWeaponSelected.AddDynamic(this, &AMainCharacter::OnWeaponSelected);
 		}
 	}
-
 	// Set visibility for both widgets
 	if (SkillWheelWidget)
 	{
@@ -664,11 +737,24 @@ void AMainCharacter::Tick(float DeltaSeconds)
 void AMainCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	EnergyProgress.Init(0.0f, SoulEnergy);
+
 	if(APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(InputMappingContext, 0);
+		}
+	}
+	if (MainCharWidget)
+	{
+		MainCharWidget = CreateWidget<UMainCharWidget>(GetWorld(), MainWidgetClass);
+		if (MainCharWidget)
+		{
+			MainCharWidget->AddToViewport();
+			MainCharWidget->Target = this;
+			MainCharWidget->UpdateHealthBar();
+			
 		}
 	}
 	if (MainSkillWidgetClass)
@@ -701,7 +787,7 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMainCharacter::Move);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);		
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
+        EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AMainCharacter::Healing);
 		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Started, this, &AMainCharacter::ActivateSkill);
 		EnhancedInputComponent->BindAction(Block, ETriggerEvent::Started, this, &AMainCharacter::TapShield);
 

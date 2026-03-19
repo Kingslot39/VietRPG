@@ -17,7 +17,7 @@ AElderStoneRift::AElderStoneRift()
 	// IMPORTANT: no absolute scale
 	SpellSprite->SetRelativeScale3D(FVector(1.f, 1.f, 1.f));
 
-	Speed = 1200.f;
+	Speed = 2000.f;
 	MoveDirection = 1.f;
 
 	InitialLifeSpan = LifeSpan;
@@ -40,10 +40,7 @@ void AElderStoneRift::BeginPlay()
 void AElderStoneRift::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	FVector Location = GetActorLocation();
-	Location.X += MoveDirection * Speed * DeltaTime;
-
-	SetActorLocation(Location, true);
+	
 
 }
 

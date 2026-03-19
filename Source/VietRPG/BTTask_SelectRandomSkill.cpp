@@ -7,53 +7,73 @@
 
 UBTTask_SelectRandomSkill::UBTTask_SelectRandomSkill()
 {
-	NodeName = TEXT("Select Random Skill");
+	NodeName = "Select Random Skill";
+    
+	UEnum* EnumAsset = LoadObject<UEnum>(nullptr, TEXT("/Game/Enemy/Boss/ElderSkillEnum.ElderSkillEnum"));
 
-	SkillKey.AddEnumFilter(
-		this,
-		GET_MEMBER_NAME_CHECKED(UBTTask_SelectRandomSkill, SkillKey),
-		StaticEnum<EEnemySkill>()
-	);
+	if (EnumAsset)
+	{
+		SkillKey.AddEnumFilter(
+			this,
+			GET_MEMBER_NAME_CHECKED(UBTTask_SelectRandomSkill, SkillKey),
+			EnumAsset
+		);
+	}
+	
 }
 
 EEnemySkill UBTTask_SelectRandomSkill::ChooseWeighted(const TArray<FSkillWeight>& In) const
 {
-	double total = 0.0;
-	for (const auto& e : In)
+	double TotalWeight = 0.0;
+
+	for (const FSkillWeight& Entry : In)
 	{
-		if (!bIgnoreZeroOrNegative || e.Weight > 0.f)
+		if (bIgnoreZeroOrNegative && Entry.Weight <= 0.f)
+			continue;
+
+		TotalWeight += FMath::Max(0.f, Entry.Weight);
+	}
+
+	if (TotalWeight <= 0.0)
+		return EEnemySkill::None;
+
+	const double Roll = FMath::FRandRange(0.0, TotalWeight);
+	double Acc = 0.0;
+
+	for (const FSkillWeight& Entry : In)
+	{
+		if (bIgnoreZeroOrNegative && Entry.Weight <= 0.f)
+			continue;
+
+		Acc += Entry.Weight;
+
+		if (Roll < Acc)
 		{
-			total += FMath::Max(0.0, static_cast<double>(e.Weight));
+			return Entry.Skill;
 		}
 	}
-	if (total <= 0.0) return EEnemySkill::None;
 
-	const double roll = FMath::FRand() * total;
-	double acc = 0.0;
-
-	for (const auto& e : In)
-	{
-		const double w = FMath::Max(0.0, static_cast<double>(e.Weight));
-		if (bIgnoreZeroOrNegative && w <= 0.0) continue;
-
-		acc += w;
-		if (roll <= acc)
-		{
-			return e.Skill;
-		}
-	}
-	return EEnemySkill::None;
+	// fallback
+	return In.Last().Skill;
 }
 
 EBTNodeResult::Type UBTTask_SelectRandomSkill::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	UBlackboardComponent* BB = OwnerComp.GetBlackboardComponent();
-	if (!BB) return EBTNodeResult::Failed;
+	if (!BB)
+		return EBTNodeResult::Failed;
 
+	// Choose a random skill
 	const EEnemySkill chosen = ChooseWeighted(Weights);
-	if (chosen == EEnemySkill::None) return EBTNodeResult::Failed;
 
-	BB->SetValueAsEnum(SkillKey.SelectedKeyName, static_cast<uint8>(chosen));
+	if (chosen == EEnemySkill::None)
+		return EBTNodeResult::Failed;
+
+	// SET BLACKBOARD VALUE HERE
+	const uint8 SkillValue = static_cast<uint8>(chosen);
+	BB->SetValueAsEnum(SkillKey.SelectedKeyName, SkillValue);
+
 	return EBTNodeResult::Succeeded;
+
 }
 

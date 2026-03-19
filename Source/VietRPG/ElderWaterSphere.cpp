@@ -20,7 +20,7 @@ void AElderWaterSphere::DestroySphere()
 void AElderWaterSphere::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorldTimerManager().SetTimer(RemainTimerHandle, this, &AElderWaterSphere::DestroySphere, 3.0f, false);
+	GetWorldTimerManager().SetTimer(RemainTimerHandle, this, &AElderWaterSphere::DestroySphere, 1.5f, false);
 	
 }
 

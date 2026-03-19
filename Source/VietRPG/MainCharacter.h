@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BlockingShield.h"
 #include "EarthWall.h"
 #include "PaperCharacter.h"
 
@@ -10,6 +11,7 @@
 #include "ElementCombineComponent.h"
 #include "InputMappingContext.h"
 #include "InputActionValue.h"
+#include "MainCharWidget.h"
 #include "MainSkillWidget.h"
 #include "MainWeaponWidget.h"
 #include "SkillWheelWidget.h"
@@ -18,6 +20,7 @@
 #include "WaterSwordSlice.h"
 #include "WeaponWheelWidget.h"
 #include "WindShield.h"
+#include "WindSlice.h"
 #include "MainCharacter.generated.h"
 
 /**
@@ -65,6 +68,8 @@ class VIETRPG_API AMainCharacter : public APaperCharacter
 	UInputAction* WeaponWheelSelectDown;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* Dashing;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* HealAction;
 	
 	
 
@@ -103,9 +108,10 @@ public:
 	UPaperFlipbook* SwordDashAnimation;
 
 	// Health
+	UFUNCTION(BlueprintCallable)
 	void TakeDamage(float DamageAmount);
 	
-	void Heal(float HealAmount);
+	void Healing();
 	//Dashing
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool bIsDashing = false;
@@ -176,6 +182,9 @@ public:
 	void SwordDash();
 	bool bSwordDash = false;
 	FTimerHandle SwordDashTimerHandle;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TSubclassOf<AWindSlice>WindSliceClass;
+	
 
 	UPROPERTY(EditAnywhere, Category="Dash")
 	float DashDistance = 500.f;
@@ -198,20 +207,31 @@ public:
 
 	//Parry
 	bool bShieldActive = false;
-	
+	bool bIsCanBlock = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbook* ParryAnimation;
 
-	// Timing
+	int32 SoulEnergy = 5;
+	TArray<float> EnergyProgress;
 	UPROPERTY(EditAnywhere, Category="Shield")
-	float ShieldDuration = 0.35f;
-	
+	float ShieldDuration = 0.2f;
 
+	//Check energy bar
+	void ConsumeEnergy(float Amount);
+	bool CheckEnergy(float Amount);
+	
 	// Timers
 	FTimerHandle ShieldTimerHandle;
 	FTimerHandle ShieldCooldownHandle;
-
+	FTimerHandle ResetBlockHandle;
 	void TapShield();
+	void ActivateShield();
 
-	
+	FTimerHandle ShieldTimerTimerHandle;
+	UFUNCTION(BlueprintCallable)
+    void PerfectParry();
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TSubclassOf<ABlockingShield>BlockingShieldClass;
 
 
 	//Find Enemy
@@ -237,7 +257,6 @@ public:
 	UMainWeaponWidget* MainWeaponWidget;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UWeaponWheelWidget* WeaponWheelWidget;
-
 	
 	UPROPERTY()
     bool bIsSkillWheelVisible = false;
@@ -257,6 +276,13 @@ public:
 	void SelectWeaponRight();
 	void SelectWeaponUp();
 	void SelectWeaponDown();
+
+	// Main Widget
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UMainCharWidget>MainWidgetClass;
+	UPROPERTY(EditAnywhere)
+	UMainCharWidget* MainCharWidget;
+	
 private:
 	void Tick(float DeltaSeconds) override;
     void BeginPlay() override;

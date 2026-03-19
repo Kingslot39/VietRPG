@@ -20,7 +20,7 @@ void AFireColumn::DestroyActor()
 void AFireColumn::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &AFireColumn::DestroyActor, 2.0f, false);
+	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &AFireColumn::DestroyActor, 1.0f, false);
 }
 
 // Called every frame

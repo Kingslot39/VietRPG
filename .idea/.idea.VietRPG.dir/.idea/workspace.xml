@@ -8,29 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="942ca541-036e-42a5-bb62-b951a306fc85" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG.dir/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG.dir/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG.dir/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/projectSettingsUpdater.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/BB_ElderBoss.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/Boss/BB_ElderBoss.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/BP_TheElder.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/Boss/BP_TheElder.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/BT_ElderBoss.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/Boss/BT_ElderBoss.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Boss/Skill/BP_ElderStoneRift.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/Boss/Skill/BP_ElderStoneRift.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Map/2DMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/2DMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Audio/Collapse01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Audio/Collapse01.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/BTService_SelectRandomSkill.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/BTService_SelectRandomSkill.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VietRPG.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VietRPG.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/Boss1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Boss1.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/VietRPG/Boss1.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/Boss1.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/ElderAIController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/VietRPG/MainCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VietRPG.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/VietRPG.sln.DotSettings.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,14 +121,6 @@
         <option name="Build" />
       </method>
     </configuration>
-    <configuration default="true" type="Uproject" factoryName="rider.uproject">
-      <option name="DEFAULT_PROJECT_PATH" value="" />
-      <option name="PROJECT_FILE_PATH" value="" />
-      <option name="AUTO_SELECT_PRIORITY" value="0" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -159,6 +131,7 @@
       <updated>1772359849318</updated>
       <workItem from="1772359851668" duration="1527000" />
       <workItem from="1772415416379" duration="392000" />
+      <workItem from="1772450679691" duration="822000" />
     </task>
     <servers />
   </component>

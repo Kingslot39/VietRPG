@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
 #include "PaperFlipbookComponent.h"
 #include "GameFramework/Actor.h"
 #include "EarthWall.generated.h"
@@ -17,6 +19,16 @@ public:
 	AEarthWall();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Earth Wall")
 	UPaperFlipbookComponent* EarthWallSprite;
+
+	UPROPERTY(VisibleAnywhere)
+	USceneComponent* Root;
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
+	UBoxComponent* Collision;
+
+	FTimerHandle Timer;
+
+	void EnableCollision();
 
 protected:
 	// Called when the game starts or when spawned

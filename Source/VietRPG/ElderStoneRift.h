@@ -27,7 +27,7 @@ public:
 	float MoveDirection = 1.f;
 
 	UPROPERTY(EditAnywhere)
-	float Speed = 1200.f;
+	float Speed = 2000.f;
 	
 
 	void SetMoveDirection(float Direction);
