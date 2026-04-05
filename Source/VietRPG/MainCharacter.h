@@ -109,7 +109,7 @@ public:
 
 	// Health
 	UFUNCTION(BlueprintCallable)
-	void TakeDamage(float DamageAmount);
+	void DealMainDamage(float DamageAmount);
 	
 	void Healing();
 	//Dashing

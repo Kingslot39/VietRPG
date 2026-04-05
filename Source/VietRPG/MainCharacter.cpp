@@ -18,7 +18,7 @@ AMainCharacter::AMainCharacter()
 	
 }
 
-void AMainCharacter::TakeDamage(float DamageAmount)
+void AMainCharacter::DealMainDamage(float DamageAmount)
 {
 	if (bShieldActive)
 	{
@@ -38,10 +38,16 @@ void AMainCharacter::TakeDamage(float DamageAmount)
 
 void AMainCharacter::Healing()
 {
-	if (CheckEnergy(2))
+	//if (CheckEnergy(2))
 	{
 		CurrentHealth = FMath::Clamp(CurrentHealth + 60, 0.f, MaxHealth);
+		// Update UI
+		if (MainCharWidget)
+		{
+			MainCharWidget->UpdateHealthBar();
+		}
 		ConsumeEnergy(2);
+		
 	}
 }
 
@@ -418,23 +424,23 @@ void AMainCharacter::StoneSwordSkill()
 	if (bSwordRising)
 	{
 		bSwordRising = false;
-		if (!StoneRiftBulletClass) return;
-
+		
 		FVector ActorLocation = GetActorLocation();
-		FRotator SpawnRotation = FRotator::ZeroRotator;
 
-		// How far from the character center
 		const float SideOffset = 60.f;
 
-		// RIGHT spawn location
-		FVector RightSpawnLocation = ActorLocation + FVector(SideOffset, 0.f, 0.f) - FVector(0,0,80);
-		AStoneRiftBullet* RightProjectile =GetWorld()->SpawnActor<AStoneRiftBullet>(StoneRiftBulletClass,RightSpawnLocation,SpawnRotation);
-		RightProjectile->SetMoveDirection(1.f); // move right
-		
-		
+		// Use stored direction
+		float Dir = (GetSprite()->GetRelativeScale3D().X > 0) ? 1.f : -1.f;
 
-		
-		
+		FVector SpawnLocation = ActorLocation + FVector(Dir * SideOffset, 0.f, -80.f);
+
+		AStoneRiftBullet* Projectile = GetWorld()->SpawnActor<AStoneRiftBullet>(
+			StoneRiftBulletClass,
+			SpawnLocation,
+			FRotator::ZeroRotator
+		);
+
+		Projectile->SetMoveDirection(Dir);
 	}
 }
 

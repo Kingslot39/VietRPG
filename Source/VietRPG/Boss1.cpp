@@ -3,7 +3,6 @@
 
 #include "Boss1.h"
 
-#include "SelectionSet.h"
 
  ABoss1::ABoss1()
 {
@@ -200,7 +199,6 @@ void ABoss1::StoneRiftShoot()
 {
 	if (bCanMeditate)
 	{
-		
 		bCanAirStrike = false;
 		bCanFire = false;
 		bIsMeditating = true;
@@ -233,6 +231,7 @@ void ABoss1::SpawnTrap()
 		SpawnRotation
 	);
 	CurrentSpawnCount ++;
+ 	
 }
 
 
