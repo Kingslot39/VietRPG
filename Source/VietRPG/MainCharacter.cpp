@@ -209,10 +209,8 @@ void AMainCharacter::ChooseSkillAnimation(EWeaponType SelectedWeapon)
 {
 	if ( SelectedWeapon == EWeaponType::E_Staff)
 	{
-		
 		if (bIsShootingAir)
 		{
-			
 			if (bIsJumping)
 			{
 				if (AirWindShootAnimation && GetSprite()->GetFlipbook() != AirWindShootAnimation)

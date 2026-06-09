@@ -6,7 +6,7 @@
 
  ABoss1::ABoss1()
 {
- 
+
 	PrimaryActorTick.bCanEverTick = true;
 	MaxHealth = 2000;
 	CurrentHealth = MaxHealth;
