@@ -58,3 +58,11 @@ void AElderAIController::FireSlam()
 		Boss1->FireStep();
 	}
 }
+
+void AElderAIController::OnBossPhase2Activated()
+{
+	if (BlackboardComponent)
+	{
+		BlackboardComponent->SetValueAsBool(FName("bIsPhase2"), true);
+	}
+}

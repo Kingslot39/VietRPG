@@ -129,6 +129,11 @@ public:
 	UPROPERTY(EditAnywhere,Blueprintreadwrite)
 	UElderBossWidget* ElderBossWidget;
 
+	// Phase 2
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsPhase2 = false;
+	void ActivatePhase2();
+
 	//Rotate
 	void FaceTarget();
 

@@ -43,4 +43,6 @@ public:
 	void Shoot();
 	void BossMeditate();
 	void FireSlam();
+
+	void OnBossPhase2Activated();
 };

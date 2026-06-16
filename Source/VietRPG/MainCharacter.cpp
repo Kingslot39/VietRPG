@@ -481,7 +481,7 @@ void AMainCharacter::TapShield()
 		GetWorldTimerManager().SetTimer(ResetBlockHandle,[this]()
 		{
 			bIsCanBlock= true;
-		},1.0f, false );
+		},0.1f, false );
 	}
 }
 

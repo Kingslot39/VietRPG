@@ -2,6 +2,7 @@
 
 
 #include "Boss1.h"
+#include "ElderAIController.h"
 
 
  ABoss1::ABoss1()
@@ -19,8 +20,23 @@
 	{
 		ElderBossWidget->UpdateValue();
 	}
-	
+
+	if (!bIsPhase2 && CurrentHealth <= MaxHealth * 0.5f)
+	{
+		ActivatePhase2();
+	}
  }
+
+void ABoss1::ActivatePhase2()
+{
+	bIsPhase2 = true;
+
+	AElderAIController* AIController = Cast<AElderAIController>(GetController());
+	if (AIController)
+	{
+		AIController->OnBossPhase2Activated();
+	}
+}
 
  void ABoss1::UpdateAnimation()
 {
@@ -249,8 +265,6 @@ void ABoss1::FireStep()
 
 void ABoss1::CastFirePillar()
 {
-	
-
  	FVector StartLocation = GetActorLocation();
 
  	// 2D direction (-1 = left, 1 = right)

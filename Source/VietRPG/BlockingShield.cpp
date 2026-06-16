@@ -28,7 +28,7 @@ void ABlockingShield::DestroyShield()
 void ABlockingShield::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorldTimerManager().SetTimer(ShieldTimer, this, &ABlockingShield::DestroyShield, 0.7f, false);
+	GetWorldTimerManager().SetTimer(ShieldTimer, this, &ABlockingShield::DestroyShield, 0.5f, false);
 	
 }
 
