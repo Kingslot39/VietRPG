@@ -293,14 +293,14 @@ void AMainCharacter::ActivateSkill()
 		// Staff + air
 		if(SelectedSkill == EElementTag::E_Air && SelectedWeapon == EWeaponType::E_Staff)
 		{
-			if (CheckEnergy(1))
-			{
-				GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::ShootingSpellSkill, 0.3f, false);
+			//if (CheckEnergy(1))
+			//{
+				GetWorldTimerManager().SetTimer(ShootingAirTimerHandle, this, &AMainCharacter::ShootingSpellSkill, 0.4f, false);
 				bIsShootingAir = true;
 				GetCharacterMovement()->DisableMovement();
-				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
-				ConsumeEnergy(1);
-			}
+				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.4f, false);
+				//ConsumeEnergy(1);
+			//}
 		}
 		//Staff + earth
 		else if(SelectedSkill == EElementTag::E_Earth && SelectedWeapon == EWeaponType::E_Staff)
@@ -340,11 +340,11 @@ void AMainCharacter::ActivateSkill()
 		{
 			//if (CheckEnergy(1))
 			{
-				GetWorldTimerManager().SetTimer(StoneSwordTimerHandle, this, &AMainCharacter::StoneSwordSkill, 0.3f, false);
+				GetWorldTimerManager().SetTimer(StoneSwordTimerHandle, this, &AMainCharacter::StoneSwordSkill, 0.4f, false);
 				bSwordRising = true;
 				GetSprite()->SetFlipbook(StoneSwordAnimation);
 				GetCharacterMovement()->DisableMovement();
-				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.3f, false);
+				GetWorldTimerManager().SetTimer(DisableMovementTimerHandle, this, &AMainCharacter::EnableMovement, 0.4f, false);
 				//ConsumeEnergy(1);
 			}
 		}
